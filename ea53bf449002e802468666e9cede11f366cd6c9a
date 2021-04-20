@@ -6,9 +6,9 @@
       "updated": "2021-04-20T21:54:21Z"
     },
     "gerritforge:plugins-events-aws-kinesis-code-style": {
-      "state": "NOT_STARTED",
+      "state": "SCHEDULED",
       "created": "2021-04-20T20:36:06Z",
-      "updated": "2021-04-20T21:54:21Z"
+      "updated": "2021-04-20T22:05:29Z"
     }
   }
 }
