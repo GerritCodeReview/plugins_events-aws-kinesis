@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3e815ef_ecbf70a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-22T15:36:05Z",
+      "side": 1,
+      "message": "This relies on https://gerrit-review.googlesource.com/c/gerrit/+/296105 to work e2e.\n\nTested with the above change on a local multisite setup.",
+      "revId": "41deb5bb59fc4d9665a7d662e349cba5719b8c63",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
