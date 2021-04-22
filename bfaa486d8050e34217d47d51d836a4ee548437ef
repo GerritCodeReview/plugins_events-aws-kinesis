@@ -51,6 +51,24 @@
       "message": "This change wasn\u0027t merged yet: [1].\n\n[1] https://gerrit-review.googlesource.com/c/gerrit/+/296105",
       "revId": "bfaa486d8050e34217d47d51d836a4ee548437ef",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94bc47a2_22e9ac4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-22T09:04:50Z",
+      "side": 1,
+      "message": "@davido: that change seems to be waiting just on some comments and then it would be ready to merge.\n\nWould you mind adding those comments so that we can proceed and unblock this one too?",
+      "parentUuid": "8b48522d_c931385c",
+      "revId": "bfaa486d8050e34217d47d51d836a4ee548437ef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
