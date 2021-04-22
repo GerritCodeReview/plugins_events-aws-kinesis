@@ -66,7 +66,6 @@ junit_tests(
         "@amazon-kinesis-client//jar",
         "@amazon-kinesis//jar",
         "@events-broker//jar",
-        "@testcontainer-localstack//jar",
     ],
 )
 
@@ -89,5 +88,6 @@ java_library(
         "@aws-java-sdk-core//jar",
         "@awssdk-url-connection-client//jar",
         "@amazon-dynamodb//jar",
+        "@testcontainer-localstack//jar",
     ],
 )
