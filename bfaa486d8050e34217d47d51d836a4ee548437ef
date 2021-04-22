@@ -69,6 +69,24 @@
       "parentUuid": "8b48522d_c931385c",
       "revId": "bfaa486d8050e34217d47d51d836a4ee548437ef",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f549917b_054880d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2021-04-22T09:24:36Z",
+      "side": 1,
+      "message": "I am working on the series, but the test breakage is entirely unrelated to my optimization:\n\n  6) sendingSynchronouslyShouldBeUnsuccessfulWhenTimingOut(com.googlesource.gerrit.plugins.kinesis.KinesisEventsIT)\njava.lang.NoClassDefFoundError: com/google/gerrit/server/change/ChangeKeyAdapter\n\tat com.gerritforge.gerrit.eventbroker.EventGsonProvider.get(EventGsonProvider.java:80)\n\tat com.gerritforge.gerrit.eventbroker.EventGsonProvider.get(EventGsonProvider.java:39)\n\tat com.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:86)\n\nThe problem is outdated events-broker version. I uploaded the fix in change 304056.",
+      "parentUuid": "94bc47a2_22e9ac4a",
+      "revId": "bfaa486d8050e34217d47d51d836a4ee548437ef",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
