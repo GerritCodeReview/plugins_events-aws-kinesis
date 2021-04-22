@@ -55,7 +55,7 @@ gerrit_plugin(
 )
 
 junit_tests(
-    name = "kinesis_events_tests",
+    name = "events-aws-kinesis_tests",
     timeout = "long",
     srcs = glob(["src/test/java/**/*.java"]),
     tags = ["events-aws-kinesis"],
