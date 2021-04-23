@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.kinesis;
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import java.util.Collections;
@@ -42,11 +43,7 @@ class KinesisBrokerApi implements BrokerApi {
   }
 
   @Override
-  public boolean send(String streamName, EventMessage event) {
-    return sendWithResult(streamName, event).isSuccess();
-  }
-
-  PublishResult sendWithResult(String streamName, EventMessage event) {
+  public ListenableFuture<Boolean> send(String streamName, EventMessage event) {
     return kinesisPublisher.publish(
         streamName, gson.toJson(event), event.getHeader().sourceInstanceId.toString());
   }
