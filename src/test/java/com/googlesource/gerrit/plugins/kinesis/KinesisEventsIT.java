@@ -21,6 +21,7 @@ import static org.testcontainers.containers.localstack.LocalStackContainer.Servi
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.WaitUtil;
@@ -30,6 +31,9 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +57,7 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
   private static final Duration STREAM_CREATION_TIMEOUT = Duration.ofSeconds(10);
 
   private static final int LOCALSTACK_PORT = 4566;
+  public static final long TEST_MAX_TIMEOUT = 20L;
   private LocalStackContainer localstack =
       new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.8"))
           .withServices(DYNAMODB, KINESIS, CLOUDWATCH)
@@ -147,48 +152,50 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
   @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
   @GerritConfig(name = "plugin.events-aws-kinesis.publishTimeoutMs", value = "10000")
   @GerritConfig(name = "plugin.events-aws-kinesis.sendAsync", value = "false")
-  public void sendingSynchronouslyShouldRetryUntilSuccessful() {
+  public void sendingSynchronouslyShouldBeSuccessful()
+      throws InterruptedException, ExecutionException {
     String streamName = UUID.randomUUID().toString();
     createStreamAsync(streamName);
 
-    PublishResult publishResult = kinesisBroker().sendWithResult(streamName, eventMessage());
-    assertThat(publishResult.isSuccess()).isTrue();
-    assertThat(publishResult.attempts()).isGreaterThan(1);
+    ListenableFuture<Boolean> result = kinesisBroker().send(streamName, eventMessage());
+    assertThat(result.get()).isTrue();
   }
 
-  @Test
+  @Test(expected = TimeoutException.class)
   @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
   @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
   @GerritConfig(name = "plugin.events-aws-kinesis.sendAsync", value = "false")
-  public void sendingSynchronouslyShouldBeUnsuccessfulWhenTimingOut() {
+  public void sendingSynchronouslyShouldBeUnsuccessfulWhenTimingOut()
+      throws InterruptedException, ExecutionException, TimeoutException {
     String streamName = "not-existing-stream";
 
-    PublishResult publishResult = kinesisBroker().sendWithResult(streamName, eventMessage());
-    assertThat(publishResult.isSuccess()).isFalse();
+    ListenableFuture<Boolean> result = kinesisBroker().send(streamName, eventMessage());
+    result.get(TEST_MAX_TIMEOUT, TimeUnit.SECONDS);
+  }
+
+  @Test(expected = ExecutionException.class)
+  @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
+  @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
+  @GerritConfig(name = "plugin.events-aws-kinesis.sendAsync", value = "true")
+  public void sendingAsynchronouslyShouldBFailWhenStreamDoesNotExist()
+      throws InterruptedException, ExecutionException {
+    String streamName = "not-existing-stream";
+
+    ListenableFuture<Boolean> result = kinesisBroker().send(streamName, eventMessage());
+    result.get();
   }
 
   @Test
   @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
   @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
   @GerritConfig(name = "plugin.events-aws-kinesis.sendAsync", value = "true")
-  public void sendingAsynchronouslyShouldBeImmediatelySuccessfulEvenWhenStreamDoesNotExist() {
-    String streamName = "not-existing-stream";
-
-    PublishResult publishResult = kinesisBroker().sendWithResult(streamName, eventMessage());
-    assertThat(publishResult.isSuccess()).isTrue();
-  }
-
-  @Test
-  @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
-  @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
-  @GerritConfig(name = "plugin.events-aws-kinesis.sendAsync", value = "true")
-  public void sendingAsynchronouslyShouldBeImmediatelySuccessful() {
+  public void sendingAsynchronouslyShouldBeSuccessful()
+      throws InterruptedException, ExecutionException {
     String streamName = UUID.randomUUID().toString();
     createStreamAsync(streamName);
 
-    PublishResult publishResult = kinesisBroker().sendWithResult(streamName, eventMessage());
-    assertThat(publishResult.isSuccess()).isTrue();
-    assertThat(publishResult.attempts()).isEqualTo(1);
+    ListenableFuture<Boolean> result = kinesisBroker().send(streamName, eventMessage());
+    assertThat(result.get()).isTrue();
   }
 
   public KinesisBrokerApi kinesisBroker() {
