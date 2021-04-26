@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2253a0ac_e603cbea",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisPublisher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-26T12:33:00Z",
+      "side": 1,
+      "message": "perhaps a name to better represent the purpose of this variable?\nresultFuture? asyncResult?",
+      "range": {
+        "startLine": 74,
+        "startChar": 28,
+        "endLine": 74,
+        "endChar": 34
+      },
+      "revId": "4b5c505ff66f56b4557e5e420cbb36f8cf234435",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc658cf_31fe3e38",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisPublisher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-26T12:33:00Z",
+      "side": 1,
+      "message": "Perhaps this error is misleading?\nThis is not always failure of completion, it could complete, but then be a failure right?",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 85
+      },
+      "revId": "4b5c505ff66f56b4557e5e420cbb36f8cf234435",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64cebb91_ce083156",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisPublisher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-26T12:33:00Z",
+      "side": 1,
+      "message": "What happens, from the caller point of view, when the returned $future was never set with anything?\n\nWhat happens for example if a callback was attached to it?",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "4b5c505ff66f56b4557e5e420cbb36f8cf234435",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bd812ac_051a61d9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisPublisher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-26T12:33:00Z",
+      "side": 1,
+      "message": "userRecordResultToBoolean?",
+      "range": {
+        "startLine": 120,
+        "startChar": 42,
+        "endLine": 120,
+        "endChar": 55
+      },
+      "revId": "4b5c505ff66f56b4557e5e420cbb36f8cf234435",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a33dddcd_c6054d46",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-26T12:33:00Z",
+      "side": 1,
+      "message": "Should this be private?",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 60,
+        "endChar": 8
+      },
+      "revId": "4b5c505ff66f56b4557e5e420cbb36f8cf234435",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f4b5b10_747e5835",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-26T12:33:00Z",
+      "side": 1,
+      "message": "TEST_MAX_TIMEOUT is a bit generic.\nAlso, it\u0027s not clear if this is 20 millis or 20 seconds.\n\nHow about SEND_TIMEOUT_MILLIS? or something more appropriate?",
+      "range": {
+        "startLine": 60,
+        "startChar": 27,
+        "endLine": 60,
+        "endChar": 43
+      },
+      "revId": "4b5c505ff66f56b4557e5e420cbb36f8cf234435",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142fd3aa_2b426eb8",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-26T12:33:00Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 180,
+        "startChar": 40,
+        "endLine": 180,
+        "endChar": 43
+      },
+      "revId": "4b5c505ff66f56b4557e5e420cbb36f8cf234435",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd95aa0_1f38eac6",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-26T12:33:00Z",
+      "side": 1,
+      "message": "What\u0027s the execution exception? Can we make any assertion on it to make sure we failed for the right reason?",
+      "range": {
+        "startLine": 180,
+        "startChar": 14,
+        "endLine": 180,
+        "endChar": 68
+      },
+      "revId": "4b5c505ff66f56b4557e5e420cbb36f8cf234435",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
