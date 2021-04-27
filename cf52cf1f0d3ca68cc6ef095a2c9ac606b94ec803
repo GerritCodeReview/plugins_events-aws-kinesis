@@ -41,6 +41,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d161accf_3850dd21",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisPublisher.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-27T11:17:02Z",
+      "side": 1,
+      "message": "nice one!",
+      "parentUuid": "d64decd0_6827aea4",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 12
+      },
+      "revId": "cf52cf1f0d3ca68cc6ef095a2c9ac606b94ec803",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ce02db9_e5259664",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-04-27T07:55:20Z",
       "side": 1,
       "message": "nit: could move to line 59 to group with other timeouts.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 54
+      },
+      "revId": "cf52cf1f0d3ca68cc6ef095a2c9ac606b94ec803",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c9aac27_c66a1f6a",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-27T11:17:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ce02db9_e5259664",
       "range": {
         "startLine": 61,
         "startChar": 0,
