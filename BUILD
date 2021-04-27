@@ -43,8 +43,6 @@ gerrit_plugin(
         "@commons-codec//jar",
         "@events-broker//jar:neverlink",
         "@io-netty-all//jar",
-        "@jackson-annotations//jar",
-        "@jackson-core//jar",
         "@jackson-databind//jar",
         "@jackson-dataformat-cbor//jar",
         "@javax-xml-bind//jar",
@@ -55,7 +53,7 @@ gerrit_plugin(
 )
 
 junit_tests(
-    name = "kinesis_events_tests",
+    name = "events-aws-kinesis_tests",
     timeout = "long",
     srcs = glob(["src/test/java/**/*.java"]),
     tags = ["events-aws-kinesis"],
@@ -66,7 +64,6 @@ junit_tests(
         "@amazon-kinesis-client//jar",
         "@amazon-kinesis//jar",
         "@events-broker//jar",
-        "@testcontainer-localstack//jar",
     ],
 )
 
@@ -89,5 +86,6 @@ java_library(
         "@aws-java-sdk-core//jar",
         "@awssdk-url-connection-client//jar",
         "@amazon-dynamodb//jar",
+        "@testcontainer-localstack//jar",
     ],
 )
