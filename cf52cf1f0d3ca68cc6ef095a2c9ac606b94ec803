@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39e387fc_74884602",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-04-27T08:28:53Z",
+      "side": 1,
+      "message": "@ponch if you rebase this change on [1], we could get CI validation before merging it.\n\nWDYT?\n\n\n[1]https://gerrit-review.googlesource.com/c/plugins/events-aws-kinesis/+/304119",
+      "revId": "cf52cf1f0d3ca68cc6ef095a2c9ac606b94ec803",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d64decd0_6827aea4",
