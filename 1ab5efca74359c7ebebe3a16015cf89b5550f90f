@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "810efa3d_e8c813dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-28T12:22:12Z",
+      "side": 1,
+      "message": "Wait to stabilise all the branches before going on with this change",
+      "revId": "1ab5efca74359c7ebebe3a16015cf89b5550f90f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
