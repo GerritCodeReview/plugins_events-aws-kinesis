@@ -43,6 +43,7 @@ gerrit_plugin(
         "@commons-codec//jar",
         "@events-broker//jar:neverlink",
         "@io-netty-all//jar",
+        "@jackson-annotations//jar",
         "@jackson-databind//jar",
         "@jackson-dataformat-cbor//jar",
         "@javax-xml-bind//jar",
