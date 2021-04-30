@@ -22,6 +22,30 @@
       },
       "revId": "5a8490d3c096c43e4ec000f347e6b9c47567ae33",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac3808bf_660bc3a3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisPublisher.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-04-30T08:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5b4d801_623ab287",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 5
+      },
+      "revId": "5a8490d3c096c43e4ec000f347e6b9c47567ae33",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
