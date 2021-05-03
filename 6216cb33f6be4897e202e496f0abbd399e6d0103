@@ -22,6 +22,29 @@
       },
       "revId": "6216cb33f6be4897e202e496f0abbd399e6d0103",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d518c450_b992163c",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2021-05-03T08:28:28Z",
+      "side": 1,
+      "message": "nit: only in case when there will be another PS you could consider combining it into single fluent API call (all we care is that message contains the specific string and exception class is verified anyway) ;)",
+      "range": {
+        "startLine": 186,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 87
+      },
+      "revId": "6216cb33f6be4897e202e496f0abbd399e6d0103",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
