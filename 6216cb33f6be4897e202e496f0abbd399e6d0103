@@ -69,6 +69,30 @@
       },
       "revId": "6216cb33f6be4897e202e496f0abbd399e6d0103",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f553caaf_e970d1a2",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-05-06T15:40:42Z",
+      "side": 1,
+      "message": "It won\u0027t work since `assertThrows` return an ExecutionException, so I can\u0027t do something like:\n\n     assertThrows(ExecutionException.class, result::get).hasMessageThat()",
+      "parentUuid": "d518c450_b992163c",
+      "range": {
+        "startLine": 186,
+        "startChar": 4,
+        "endLine": 189,
+        "endChar": 87
+      },
+      "revId": "6216cb33f6be4897e202e496f0abbd399e6d0103",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
