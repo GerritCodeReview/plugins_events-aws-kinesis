@@ -17,28 +17,40 @@ package com.googlesource.gerrit.plugins.kinesis;
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
+import com.google.gerrit.common.Nullable;
+import com.google.gerrit.server.config.GerritInstanceId;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
+
 import java.util.Collections;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 class KinesisBrokerApi implements BrokerApi {
   private final KinesisConsumer.Factory consumerFactory;
+  private final Configuration configuration;
 
   private final Gson gson;
   private final KinesisPublisher kinesisPublisher;
   private final Set<KinesisConsumer> consumers;
+  private final UUID instanceId;
 
   @Inject
   public KinesisBrokerApi(
-      Gson gson, KinesisPublisher kinesisPublisher, KinesisConsumer.Factory consumerFactory) {
+      Gson gson,
+      KinesisPublisher kinesisPublisher,
+      KinesisConsumer.Factory consumerFactory,
+      Configuration configuration,
+      @Nullable @GerritInstanceId String instanceId) {
     this.gson = gson;
     this.kinesisPublisher = kinesisPublisher;
     this.consumerFactory = consumerFactory;
+    this.configuration = configuration;
     this.consumers = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    this.instanceId = UUID.fromString(instanceId);
   }
 
   @Override
@@ -76,5 +88,15 @@ class KinesisBrokerApi implements BrokerApi {
     consumers.stream()
         .filter(subscriber -> topic.equals(subscriber.getStreamName()))
         .forEach(KinesisConsumer::resetOffset);
+  }
+
+  @Override
+  public String streamEventTopic() {
+    return configuration.getStreamEventsTopic();
+  }
+
+  @Override
+  public UUID instanceId() {
+    return instanceId;
   }
 }

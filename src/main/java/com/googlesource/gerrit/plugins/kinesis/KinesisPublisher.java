@@ -21,11 +21,9 @@ import com.google.common.flogger.FluentLogger;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.events.EventListener;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
 import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Optional;
@@ -35,30 +33,21 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 @Singleton
-class KinesisPublisher implements EventListener {
+class KinesisPublisher {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private final KinesisProducer kinesisProducer;
   private final Configuration configuration;
   private final ExecutorService callBackExecutor;
 
-  private final Gson gson;
-
   @Inject
   public KinesisPublisher(
-      Gson gson,
       KinesisProducer kinesisProducer,
       Configuration configuration,
       @ProducerCallbackExecutor ExecutorService callBackExecutor) {
-    this.gson = gson;
     this.kinesisProducer = kinesisProducer;
     this.configuration = configuration;
     this.callBackExecutor = callBackExecutor;
-  }
-
-  @Override
-  public void onEvent(Event event) {
-    publish(configuration.getStreamEventsTopic(), gson.toJson(event), event.getType());
   }
 
   PublishResult publish(String streamName, String stringEvent, String partitionKey) {

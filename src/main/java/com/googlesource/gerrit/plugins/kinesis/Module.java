@@ -14,8 +14,6 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
-import static com.google.inject.Scopes.SINGLETON;
-
 import com.amazonaws.services.kinesis.producer.KinesisProducer;
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
 import com.gerritforge.gerrit.eventbroker.EventGsonProvider;
@@ -25,17 +23,19 @@ import com.google.gerrit.extensions.events.LifecycleListener;
 import com.google.gerrit.extensions.registration.DynamicItem;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.lifecycle.LifecycleModule;
-import com.google.gerrit.server.events.EventListener;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Scopes;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchAsyncClient;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
+
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+
+import static com.google.inject.Scopes.SINGLETON;
 
 public class Module extends LifecycleModule {
   private Set<TopicSubscriber> activeConsumers = Sets.newHashSet();
@@ -79,7 +79,6 @@ public class Module extends LifecycleModule {
     bind(Gson.class).toProvider(EventGsonProvider.class).in(Singleton.class);
     DynamicSet.bind(binder(), LifecycleListener.class).to(KinesisBrokerLifeCycleManager.class);
     factory(KinesisConsumer.Factory.class);
-    DynamicSet.bind(binder(), EventListener.class).to(KinesisPublisher.class);
     listener().to(AWSLogLevelListener.class);
   }
 }
