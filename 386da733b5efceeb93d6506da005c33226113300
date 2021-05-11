@@ -1,11 +1,12 @@
 {
   "checks": {
     "gerritforge:plugins-events-aws-kinesis-build-test": {
-      "state": "RUNNING",
+      "state": "SUCCESSFUL",
       "url": "https://gerrit-ci.gerritforge.com/job/plugin-events-aws-kinesis-verifier/job/24%252F305924%252F1/1/console",
       "started": "2021-05-11T06:22:15Z",
+      "finished": "2021-05-11T06:37:18Z",
       "created": "2021-05-11T06:17:08Z",
-      "updated": "2021-05-11T06:21:19Z"
+      "updated": "2021-05-11T06:36:22Z"
     },
     "gerritforge:plugins-events-aws-kinesis-code-style": {
       "state": "SUCCESSFUL",
