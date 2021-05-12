@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7be6bb43_63f458f6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-05-12T23:24:12Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "598a5d37_a052ee75",
+      "revId": "386da733b5efceeb93d6506da005c33226113300",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea80188e_c25e0121",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessorTest.java",
         "patchSetId": 1
