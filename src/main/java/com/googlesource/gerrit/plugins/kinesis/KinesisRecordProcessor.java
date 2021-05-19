@@ -72,6 +72,7 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
                 logger.atFiner().log("Kinesis consumed event: '%s'", jsonMessage);
                 try (ManualRequestContext ctx = oneOffCtx.open()) {
                   EventMessage eventMessage = gson.fromJson(jsonMessage, EventMessage.class);
+                  eventMessage.validate();
                   recordProcessor.accept(eventMessage);
                 } catch (Exception e) {
                   logger.atSevere().withCause(e).log("Could not process event '%s'", jsonMessage);
