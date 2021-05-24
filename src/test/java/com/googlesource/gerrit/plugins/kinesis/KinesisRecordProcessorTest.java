@@ -14,7 +14,10 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -31,6 +34,8 @@ import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import software.amazon.awssdk.core.SdkBytes;
@@ -44,6 +49,7 @@ public class KinesisRecordProcessorTest {
   private Gson gson = new EventGsonProvider().get();
 
   @Mock Consumer<EventMessage> succeedingConsumer;
+  @Captor ArgumentCaptor<EventMessage> eventMessageCaptor;
   @Mock OneOffRequestContext oneOffCtx;
   @Mock ManualRequestContext requestContext;
 
@@ -59,17 +65,91 @@ public class KinesisRecordProcessorTest {
     EventMessage messageWithoutSourceInstanceId =
         new EventMessage(new EventMessage.Header(UUID.randomUUID(), (String) null), event);
 
-    Record kinesisRecord =
-        Record.builder()
-            .data(SdkBytes.fromUtf8String(gson.toJson(messageWithoutSourceInstanceId)))
-            .build();
-    ProcessRecordsInput kinesisInput =
-        ProcessRecordsInput.builder()
-            .records(Collections.singletonList(KinesisClientRecord.fromRecord(kinesisRecord)))
-            .build();
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(messageWithoutSourceInstanceId));
 
     objectUnderTest.processRecords(kinesisInput);
 
     verify(succeedingConsumer, never()).accept(messageWithoutSourceInstanceId);
+  }
+
+  @Test
+  public void shouldParseEventObject() {
+    String instanceId = "instance-id";
+
+    Event event = new ProjectCreatedEvent();
+    event.instanceId = instanceId;
+
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(event));
+    objectUnderTest.processRecords(kinesisInput);
+
+    verify(succeedingConsumer, only()).accept(eventMessageCaptor.capture());
+
+    EventMessage result = eventMessageCaptor.getValue();
+    assertThat(result.getHeader().sourceInstanceId).isEqualTo(instanceId);
+  }
+
+  @Test
+  public void shouldSkipEventObjectWithoutInstanceId() {
+    Event event = new ProjectCreatedEvent();
+    event.instanceId = null;
+
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(event));
+    objectUnderTest.processRecords(kinesisInput);
+
+    verify(succeedingConsumer, never()).accept(any());
+  }
+
+  @Test
+  public void shouldSkipEventObjectWithUnknownType() {
+    String instanceId = "instance-id";
+    Event event = new Event("unknown-type") {};
+    event.instanceId = instanceId;
+
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(event));
+    objectUnderTest.processRecords(kinesisInput);
+
+    verify(succeedingConsumer, never()).accept(any());
+  }
+
+  @Test
+  public void shouldSkipEventObjectWithoutType() {
+    String instanceId = "instance-id";
+    Event event = new Event(null) {};
+    event.instanceId = instanceId;
+
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(event));
+    objectUnderTest.processRecords(kinesisInput);
+
+    verify(succeedingConsumer, never()).accept(any());
+  }
+
+  @Test
+  public void shouldSkipEmptyObjectJsonPayload() {
+    String emptyJsonObject = "{}";
+
+    ProcessRecordsInput kinesisInput = sampleMessage(emptyJsonObject);
+    objectUnderTest.processRecords(kinesisInput);
+
+    verify(succeedingConsumer, never()).accept(any());
+  }
+
+  @Test
+  public void shouldParseEventObjectWithHeaderAndBodyProjectName() {
+    ProjectCreatedEvent event = new ProjectCreatedEvent();
+    event.instanceId = "instance-id";
+    event.projectName = "header_body_parser_project";
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(event));
+    objectUnderTest.processRecords(kinesisInput);
+
+    verify(succeedingConsumer, only()).accept(any(EventMessage.class));
+  }
+
+  private ProcessRecordsInput sampleMessage(String message) {
+    Record kinesisRecord = Record.builder().data(SdkBytes.fromUtf8String(message)).build();
+    ProcessRecordsInput kinesisInput =
+        ProcessRecordsInput.builder()
+            .records(Collections.singletonList(KinesisClientRecord.fromRecord(kinesisRecord)))
+            .build();
+    return kinesisInput;
   }
 }
