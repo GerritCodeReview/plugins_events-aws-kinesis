@@ -14,18 +14,14 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
-import static java.util.Objects.requireNonNull;
 
+import com.gerritforge.gerrit.eventbroker.EventDeserializer;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
-import com.gerritforge.gerrit.eventbroker.EventMessage.Header;
 import com.google.common.flogger.FluentLogger;
-import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import java.util.UUID;
 import java.util.function.Consumer;
 import software.amazon.kinesis.exceptions.InvalidStateException;
 import software.amazon.kinesis.exceptions.ShutdownException;
@@ -44,14 +40,16 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private final Consumer<EventMessage> recordProcessor;
   private final OneOffRequestContext oneOffCtx;
-  private final Gson gson;
+  private final EventDeserializer eventDeserializer;
 
   @Inject
   KinesisRecordProcessor(
-      @Assisted Consumer<EventMessage> recordProcessor, OneOffRequestContext oneOffCtx, Gson gson) {
+      @Assisted Consumer<EventMessage> recordProcessor,
+      OneOffRequestContext oneOffCtx,
+      EventDeserializer eventDeserializer) {
     this.recordProcessor = recordProcessor;
     this.oneOffCtx = oneOffCtx;
-    this.gson = gson;
+    this.eventDeserializer = eventDeserializer;
   }
 
   @Override
@@ -76,7 +74,7 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
                 String jsonMessage = new String(byteRecord);
                 logger.atFiner().log("Kinesis consumed event: '%s'", jsonMessage);
                 try (ManualRequestContext ctx = oneOffCtx.open()) {
-                  EventMessage eventMessage = deserialise(jsonMessage);
+                  EventMessage eventMessage = eventDeserializer.deserialize(jsonMessage);
                   recordProcessor.accept(eventMessage);
                 } catch (Exception e) {
                   logger.atSevere().withCause(e).log("Could not process event '%s'", jsonMessage);
@@ -85,23 +83,6 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
     } catch (Throwable t) {
       logger.atSevere().withCause(t).log("Caught throwable while processing records. Aborting.");
     }
-  }
-
-  private EventMessage deserialise(String json) {
-    EventMessage result = gson.fromJson(json, EventMessage.class);
-    if (result.getEvent() == null && result.getHeader() == null) {
-      Event event = deserialiseEvent(json);
-      result = new EventMessage(new Header(UUID.randomUUID(), event.instanceId), event);
-    }
-    result.validate();
-    return result;
-  }
-
-  private Event deserialiseEvent(String json) {
-    Event event = gson.fromJson(json, Event.class);
-    requireNonNull(event.type, "Event type cannot be null");
-    requireNonNull(event.instanceId, "Event instance id cannot be null");
-    return event;
   }
 
   @Override
