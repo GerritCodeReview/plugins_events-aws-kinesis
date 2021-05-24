@@ -21,6 +21,7 @@ import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.gerritforge.gerrit.eventbroker.EventDeserializer;
 import com.gerritforge.gerrit.eventbroker.EventGsonProvider;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.google.gerrit.server.events.Event;
@@ -47,6 +48,7 @@ import software.amazon.kinesis.retrieval.KinesisClientRecord;
 public class KinesisRecordProcessorTest {
   private KinesisRecordProcessor objectUnderTest;
   private Gson gson = new EventGsonProvider().get();
+  private EventDeserializer eventDeserializer = new EventDeserializer(gson);
 
   @Mock Consumer<EventMessage> succeedingConsumer;
   @Captor ArgumentCaptor<EventMessage> eventMessageCaptor;
@@ -56,7 +58,7 @@ public class KinesisRecordProcessorTest {
   @Before
   public void setup() {
     when(oneOffCtx.open()).thenReturn(requestContext);
-    objectUnderTest = new KinesisRecordProcessor(succeedingConsumer, oneOffCtx, gson);
+    objectUnderTest = new KinesisRecordProcessor(succeedingConsumer, oneOffCtx, eventDeserializer);
   }
 
   @Test
