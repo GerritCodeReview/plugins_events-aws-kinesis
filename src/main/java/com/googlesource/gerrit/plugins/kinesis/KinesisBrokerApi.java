@@ -18,6 +18,7 @@ import com.gerritforge.gerrit.eventbroker.BrokerApi;
 import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.gerrit.server.events.EventGson;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import java.util.Collections;
@@ -35,7 +36,9 @@ class KinesisBrokerApi implements BrokerApi {
 
   @Inject
   public KinesisBrokerApi(
-      Gson gson, KinesisPublisher kinesisPublisher, KinesisConsumer.Factory consumerFactory) {
+      @EventGson Gson gson,
+      KinesisPublisher kinesisPublisher,
+      KinesisConsumer.Factory consumerFactory) {
     this.gson = gson;
     this.kinesisPublisher = kinesisPublisher;
     this.consumerFactory = consumerFactory;
