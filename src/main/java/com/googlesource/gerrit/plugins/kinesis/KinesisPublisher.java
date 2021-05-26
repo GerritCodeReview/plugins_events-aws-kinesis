@@ -22,6 +22,7 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.gerrit.server.events.Event;
+import com.google.gerrit.server.events.EventGson;
 import com.google.gerrit.server.events.EventListener;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -45,7 +46,7 @@ class KinesisPublisher implements EventListener {
 
   @Inject
   public KinesisPublisher(
-      Gson gson,
+      @EventGson Gson gson,
       KinesisProducer kinesisProducer,
       Configuration configuration,
       @ProducerCallbackExecutor ExecutorService callBackExecutor) {
