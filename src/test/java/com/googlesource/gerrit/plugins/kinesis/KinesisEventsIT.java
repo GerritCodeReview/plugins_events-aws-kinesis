@@ -21,12 +21,12 @@ import static org.testcontainers.containers.localstack.LocalStackContainer.Servi
 import static org.testcontainers.containers.localstack.LocalStackContainer.Service.KINESIS;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
-import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.WaitUtil;
 import com.google.gerrit.acceptance.config.GerritConfig;
+import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -116,8 +116,8 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
     kinesisBroker().send(streamName, eventMessage());
     WaitUtil.waitUntil(
         () -> eventConsumerCounter.getConsumedMessages().size() == 1, WAIT_FOR_CONSUMPTION);
-    assertThat(eventConsumerCounter.getConsumedMessages().get(0).getHeader().eventId)
-        .isEqualTo(eventConsumerCounter.getConsumedMessages().get(0).getHeader().eventId);
+    assertThat(eventConsumerCounter.getConsumedMessages().get(0).instanceId)
+        .isEqualTo(eventConsumerCounter.getConsumedMessages().get(0).instanceId);
   }
 
   @Test
@@ -130,13 +130,13 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
     EventConsumerCounter eventConsumerCounter = new EventConsumerCounter();
     kinesisBroker().receiveAsync(streamName, eventConsumerCounter);
 
-    EventMessage event = eventMessage();
+    Event event = eventMessage();
     kinesisBroker().send(streamName, event);
 
     WaitUtil.waitUntil(
         () -> eventConsumerCounter.getConsumedMessages().size() == 1, WAIT_FOR_CONSUMPTION);
-    assertThat(eventConsumerCounter.getConsumedMessages().get(0).getHeader().eventId)
-        .isEqualTo(event.getHeader().eventId);
+    assertThat(eventConsumerCounter.getConsumedMessages().get(0).instanceId)
+        .isEqualTo(event.instanceId);
 
     eventConsumerCounter.clear();
     kinesisBroker().disconnect();
@@ -145,8 +145,8 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
 
     WaitUtil.waitUntil(
         () -> eventConsumerCounter.getConsumedMessages().size() == 1, WAIT_FOR_CONSUMPTION);
-    assertThat(eventConsumerCounter.getConsumedMessages().get(0).getHeader().eventId)
-        .isEqualTo(event.getHeader().eventId);
+    assertThat(eventConsumerCounter.getConsumedMessages().get(0).instanceId)
+        .isEqualTo(event.instanceId);
   }
 
   @Test
@@ -225,20 +225,21 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
         CreateStreamRequest.builder().streamName(streamName).shardCount(1).build());
   }
 
-  private EventMessage eventMessage() {
-    return new EventMessage(
-        new EventMessage.Header(UUID.randomUUID(), UUID.randomUUID()), new ProjectCreatedEvent());
+  private Event eventMessage() {
+    Event event = new ProjectCreatedEvent();
+    event.instanceId = UUID.randomUUID().toString();
+    return event;
   }
 
-  private static class EventConsumerCounter implements Consumer<EventMessage> {
-    List<EventMessage> consumedMessages = new ArrayList<>();
+  private static class EventConsumerCounter implements Consumer<Event> {
+    List<Event> consumedMessages = new ArrayList<>();
 
     @Override
-    public void accept(EventMessage eventMessage) {
+    public void accept(Event eventMessage) {
       consumedMessages.add(eventMessage);
     }
 
-    public List<EventMessage> getConsumedMessages() {
+    public List<Event> getConsumedMessages() {
       return consumedMessages;
     }
 
