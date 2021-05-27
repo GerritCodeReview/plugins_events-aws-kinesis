@@ -16,7 +16,7 @@ package com.googlesource.gerrit.plugins.kinesis;
 
 import static com.googlesource.gerrit.plugins.kinesis.Configuration.cosumerLeaseName;
 
-import com.gerritforge.gerrit.eventbroker.EventMessage;
+import com.google.gerrit.server.events.Event;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
@@ -35,7 +35,7 @@ class SchedulerProvider implements Provider<Scheduler> {
     SchedulerProvider create(
         String streamName,
         boolean fromBeginning,
-        java.util.function.Consumer<EventMessage> messageProcessor);
+        java.util.function.Consumer<Event> messageProcessor);
   }
 
   private final ConfigsBuilder configsBuilder;
@@ -53,7 +53,7 @@ class SchedulerProvider implements Provider<Scheduler> {
       KinesisRecordProcessorFactory.Factory kinesisRecordProcessorFactory,
       @Assisted String streamName,
       @Assisted boolean fromBeginning,
-      @Assisted java.util.function.Consumer<EventMessage> messageProcessor) {
+      @Assisted java.util.function.Consumer<Event> messageProcessor) {
     this.configuration = configuration;
     this.kinesisAsyncClient = kinesisAsyncClient;
     this.streamName = streamName;
