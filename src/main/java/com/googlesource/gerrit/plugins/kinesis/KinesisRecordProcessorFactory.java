@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
-import com.gerritforge.gerrit.eventbroker.EventMessage;
+import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.util.function.Consumer;
@@ -23,16 +23,15 @@ import software.amazon.kinesis.processor.ShardRecordProcessorFactory;
 
 class KinesisRecordProcessorFactory implements ShardRecordProcessorFactory {
   interface Factory {
-    KinesisRecordProcessorFactory create(Consumer<EventMessage> recordProcessor);
+    KinesisRecordProcessorFactory create(Consumer<Event> recordProcessor);
   }
 
-  private final Consumer<EventMessage> recordProcessor;
+  private final Consumer<Event> recordProcessor;
   private final KinesisRecordProcessor.Factory processorFactory;
 
   @Inject
   KinesisRecordProcessorFactory(
-      @Assisted Consumer<EventMessage> recordProcessor,
-      KinesisRecordProcessor.Factory processorFactory) {
+      @Assisted Consumer<Event> recordProcessor, KinesisRecordProcessor.Factory processorFactory) {
     this.recordProcessor = recordProcessor;
     this.processorFactory = processorFactory;
   }
