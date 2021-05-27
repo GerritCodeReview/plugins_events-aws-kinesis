@@ -14,8 +14,8 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
-import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -26,7 +26,7 @@ import software.amazon.kinesis.coordinator.Scheduler;
 
 class KinesisConsumer {
   interface Factory {
-    KinesisConsumer create(String topic, Consumer<EventMessage> messageProcessor);
+    KinesisConsumer create(String topic, Consumer<Event> messageProcessor);
   }
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
@@ -36,7 +36,7 @@ class KinesisConsumer {
   private final ExecutorService executor;
   private Scheduler kinesisScheduler;
 
-  private java.util.function.Consumer<EventMessage> messageProcessor;
+  private java.util.function.Consumer<Event> messageProcessor;
   private String streamName;
   private AtomicBoolean resetOffset = new AtomicBoolean(false);
 
@@ -52,8 +52,7 @@ class KinesisConsumer {
     this.executor = executor;
   }
 
-  public void subscribe(
-      String streamName, java.util.function.Consumer<EventMessage> messageProcessor) {
+  public void subscribe(String streamName, java.util.function.Consumer<Event> messageProcessor) {
     this.streamName = streamName;
     this.messageProcessor = messageProcessor;
 
@@ -61,7 +60,7 @@ class KinesisConsumer {
     runReceiver(messageProcessor);
   }
 
-  private void runReceiver(java.util.function.Consumer<EventMessage> messageProcessor) {
+  private void runReceiver(java.util.function.Consumer<Event> messageProcessor) {
     this.kinesisScheduler =
         schedulerFactory.create(streamName, resetOffset.getAndSet(false), messageProcessor).get();
     executor.execute(kinesisScheduler);
@@ -81,7 +80,7 @@ class KinesisConsumer {
     logger.atInfo().log("Shutdown kinesis consumer of stream %s completed.", getStreamName());
   }
 
-  public java.util.function.Consumer<EventMessage> getMessageProcessor() {
+  public java.util.function.Consumer<Event> getMessageProcessor() {
     return messageProcessor;
   }
 
