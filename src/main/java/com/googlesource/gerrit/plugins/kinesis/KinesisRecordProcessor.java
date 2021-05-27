@@ -15,8 +15,8 @@
 package com.googlesource.gerrit.plugins.kinesis;
 
 import com.gerritforge.gerrit.eventbroker.EventDeserializer;
-import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.google.common.flogger.FluentLogger;
+import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.util.ManualRequestContext;
 import com.google.gerrit.server.util.OneOffRequestContext;
 import com.google.inject.Inject;
@@ -33,17 +33,17 @@ import software.amazon.kinesis.processor.ShardRecordProcessor;
 
 class KinesisRecordProcessor implements ShardRecordProcessor {
   interface Factory {
-    KinesisRecordProcessor create(Consumer<EventMessage> recordProcessor);
+    KinesisRecordProcessor create(Consumer<Event> recordProcessor);
   }
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-  private final Consumer<EventMessage> recordProcessor;
+  private final Consumer<Event> recordProcessor;
   private final OneOffRequestContext oneOffCtx;
   private final EventDeserializer eventDeserializer;
 
   @Inject
   KinesisRecordProcessor(
-      @Assisted Consumer<EventMessage> recordProcessor,
+      @Assisted Consumer<Event> recordProcessor,
       OneOffRequestContext oneOffCtx,
       EventDeserializer eventDeserializer) {
     this.recordProcessor = recordProcessor;
@@ -73,7 +73,7 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
                 String jsonMessage = new String(byteRecord);
                 logger.atFiner().log("Kinesis consumed event: '%s'", jsonMessage);
                 try (ManualRequestContext ctx = oneOffCtx.open()) {
-                  EventMessage eventMessage = eventDeserializer.deserialize(jsonMessage);
+                  Event eventMessage = eventDeserializer.deserialize(jsonMessage);
                   recordProcessor.accept(eventMessage);
                 } catch (Exception e) {
                   logger.atSevere().withCause(e).log("Could not process event '%s'", jsonMessage);
