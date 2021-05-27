@@ -21,12 +21,12 @@ import static org.testcontainers.containers.localstack.LocalStackContainer.Servi
 import static org.testcontainers.containers.localstack.LocalStackContainer.Service.KINESIS;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
-import com.gerritforge.gerrit.eventbroker.EventMessage;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.acceptance.LightweightPluginDaemonTest;
 import com.google.gerrit.acceptance.TestPlugin;
 import com.google.gerrit.acceptance.WaitUtil;
 import com.google.gerrit.acceptance.config.GerritConfig;
+import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.ProjectCreatedEvent;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -59,6 +59,7 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
   private static final long SEND_TIMEOUT_MILLIS = 200;
 
   private static final int LOCALSTACK_PORT = 4566;
+  private static final String DEFAULT_INSTANCE_ID = "instance-id";
 
   private LocalStackContainer localstack =
       new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.8"))
@@ -113,11 +114,11 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
     EventConsumerCounter eventConsumerCounter = new EventConsumerCounter();
     kinesisBroker().receiveAsync(streamName, eventConsumerCounter);
 
-    kinesisBroker().send(streamName, eventMessage());
+    Event event = eventMessage();
+    kinesisBroker().send(streamName, event);
     WaitUtil.waitUntil(
         () -> eventConsumerCounter.getConsumedMessages().size() == 1, WAIT_FOR_CONSUMPTION);
-    assertThat(eventConsumerCounter.getConsumedMessages().get(0).getHeader().eventId)
-        .isEqualTo(eventConsumerCounter.getConsumedMessages().get(0).getHeader().eventId);
+    compareEvents(eventConsumerCounter.getConsumedMessages().get(0), event);
   }
 
   @Test
@@ -130,13 +131,12 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
     EventConsumerCounter eventConsumerCounter = new EventConsumerCounter();
     kinesisBroker().receiveAsync(streamName, eventConsumerCounter);
 
-    EventMessage event = eventMessage();
+    Event event = eventMessage();
     kinesisBroker().send(streamName, event);
 
     WaitUtil.waitUntil(
         () -> eventConsumerCounter.getConsumedMessages().size() == 1, WAIT_FOR_CONSUMPTION);
-    assertThat(eventConsumerCounter.getConsumedMessages().get(0).getHeader().eventId)
-        .isEqualTo(event.getHeader().eventId);
+    compareEvents(eventConsumerCounter.getConsumedMessages().get(0), event);
 
     eventConsumerCounter.clear();
     kinesisBroker().disconnect();
@@ -145,8 +145,7 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
 
     WaitUtil.waitUntil(
         () -> eventConsumerCounter.getConsumedMessages().size() == 1, WAIT_FOR_CONSUMPTION);
-    assertThat(eventConsumerCounter.getConsumedMessages().get(0).getHeader().eventId)
-        .isEqualTo(event.getHeader().eventId);
+    compareEvents(eventConsumerCounter.getConsumedMessages().get(0), event);
   }
 
   @Test
@@ -225,20 +224,27 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
         CreateStreamRequest.builder().streamName(streamName).shardCount(1).build());
   }
 
-  private EventMessage eventMessage() {
-    return new EventMessage(
-        new EventMessage.Header(UUID.randomUUID(), UUID.randomUUID()), new ProjectCreatedEvent());
+  private Event eventMessage() {
+    Event event = new ProjectCreatedEvent();
+    event.instanceId = DEFAULT_INSTANCE_ID;
+    return event;
   }
 
-  private static class EventConsumerCounter implements Consumer<EventMessage> {
-    List<EventMessage> consumedMessages = new ArrayList<>();
+  private void compareEvents(Event event, Event expectedEvent) {
+    assertThat(event.type).isEqualTo(expectedEvent.type);
+    assertThat(event.eventCreatedOn).isEqualTo(expectedEvent.eventCreatedOn);
+    assertThat(event.instanceId).isEqualTo(expectedEvent.instanceId);
+  }
+
+  private static class EventConsumerCounter implements Consumer<Event> {
+    List<Event> consumedMessages = new ArrayList<>();
 
     @Override
-    public void accept(EventMessage eventMessage) {
+    public void accept(Event eventMessage) {
       consumedMessages.add(eventMessage);
     }
 
-    public List<EventMessage> getConsumedMessages() {
+    public List<Event> getConsumedMessages() {
       return consumedMessages;
     }
 
