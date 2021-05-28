@@ -1,5 +1,10 @@
 {
   "checks": {
+    "gerritforge:plugins-events-aws-kinesis-build-test": {
+      "state": "SCHEDULED",
+      "created": "2021-05-28T11:22:52Z",
+      "updated": "2021-05-28T11:22:52Z"
+    },
     "gerritforge:plugins-events-aws-kinesis-code-style": {
       "state": "SCHEDULED",
       "created": "2021-05-28T11:22:51Z",
