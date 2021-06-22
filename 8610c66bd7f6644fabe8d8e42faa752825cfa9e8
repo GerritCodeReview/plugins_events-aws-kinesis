@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d810cdb_3610e651",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisBrokerApi.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-06-22T13:44:11Z",
+      "side": 1,
+      "message": "This situation is already covered in multi-site plugin. Events-* plugins should not contain this logic",
+      "parentUuid": "17ae610a_0566d5de",
+      "range": {
+        "startLine": 50,
+        "startChar": 1,
+        "endLine": 50,
+        "endChar": 86
+      },
+      "revId": "8610c66bd7f6644fabe8d8e42faa752825cfa9e8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8f11d78_0671edb0",
         "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
         "patchSetId": 4
@@ -61,6 +85,30 @@
       "writtenOn": "2021-06-17T23:53:11Z",
       "side": 1,
       "message": "The instanceId *IS NOT* the eventId. The semantics of this assertion changes here: are we sure we want this?",
+      "range": {
+        "startLine": 119,
+        "startChar": 65,
+        "endLine": 119,
+        "endChar": 75
+      },
+      "revId": "8610c66bd7f6644fabe8d8e42faa752825cfa9e8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dba8cc5_001765f9",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-06-22T13:44:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8f11d78_0671edb0",
       "range": {
         "startLine": 119,
         "startChar": 65,
@@ -94,6 +142,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e326f01b_c922e71f",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-06-22T13:44:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11fbc891_e23bba20",
+      "range": {
+        "startLine": 138,
+        "startChar": 65,
+        "endLine": 138,
+        "endChar": 75
+      },
+      "revId": "8610c66bd7f6644fabe8d8e42faa752825cfa9e8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "075f969e_ebe40f2a",
@@ -107,6 +179,30 @@
       "writtenOn": "2021-06-17T23:53:11Z",
       "side": 1,
       "message": "Same as above: instanceId \u003c\u003e eventId",
+      "range": {
+        "startLine": 148,
+        "startChar": 65,
+        "endLine": 148,
+        "endChar": 75
+      },
+      "revId": "8610c66bd7f6644fabe8d8e42faa752825cfa9e8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "849328d4_f088a503",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-06-22T13:44:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "075f969e_ebe40f2a",
       "range": {
         "startLine": 148,
         "startChar": 65,
@@ -140,6 +236,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46d9acaf_ce78d25f",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-06-22T13:44:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "674ef4c7_00882ad4",
+      "range": {
+        "startLine": 230,
+        "startChar": 23,
+        "endLine": 230,
+        "endChar": 51
+      },
+      "revId": "8610c66bd7f6644fabe8d8e42faa752825cfa9e8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5dea4e2_ab3d8245",
@@ -153,6 +273,30 @@
       "writtenOn": "2021-06-17T23:53:11Z",
       "side": 1,
       "message": "This can be a static constant: all messages have the same source instanceId",
+      "range": {
+        "startLine": 66,
+        "startChar": 23,
+        "endLine": 66,
+        "endChar": 52
+      },
+      "revId": "8610c66bd7f6644fabe8d8e42faa752825cfa9e8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2466715_2172f479",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2021-06-22T13:44:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5dea4e2_ab3d8245",
       "range": {
         "startLine": 66,
         "startChar": 23,
