@@ -58,14 +58,14 @@ class KinesisPublisher implements EventListener {
 
   @Override
   public void onEvent(Event event) {
-    publish(configuration.getStreamEventsTopic(), gson.toJson(event), event.getType());
+    publish(configuration.getStreamEventsTopic(), event);
   }
 
-  ListenableFuture<Boolean> publish(String streamName, String stringEvent, String partitionKey) {
+  ListenableFuture<Boolean> publish(String streamName, Event event) {
     if (configuration.isSendAsync()) {
-      return publishAsync(streamName, stringEvent, partitionKey);
+      return publishAsync(streamName, gson.toJson(event), event.getType());
     }
-    return publishSync(streamName, stringEvent, partitionKey);
+    return publishSync(streamName, gson.toJson(event), event.getType());
   }
 
   private ListenableFuture<Boolean> publishSync(

@@ -18,8 +18,6 @@ import com.gerritforge.gerrit.eventbroker.BrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.server.events.Event;
-import com.google.gerrit.server.events.EventGson;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
 import java.util.Collections;
 import java.util.Set;
@@ -30,16 +28,12 @@ import java.util.stream.Collectors;
 class KinesisBrokerApi implements BrokerApi {
   private final KinesisConsumer.Factory consumerFactory;
 
-  private final Gson gson;
   private final KinesisPublisher kinesisPublisher;
   private final Set<KinesisConsumer> consumers;
 
   @Inject
   public KinesisBrokerApi(
-      @EventGson Gson gson,
-      KinesisPublisher kinesisPublisher,
-      KinesisConsumer.Factory consumerFactory) {
-    this.gson = gson;
+      KinesisPublisher kinesisPublisher, KinesisConsumer.Factory consumerFactory) {
     this.kinesisPublisher = kinesisPublisher;
     this.consumerFactory = consumerFactory;
     this.consumers = Collections.newSetFromMap(new ConcurrentHashMap<>());
@@ -47,7 +41,7 @@ class KinesisBrokerApi implements BrokerApi {
 
   @Override
   public ListenableFuture<Boolean> send(String streamName, Event event) {
-    return kinesisPublisher.publish(streamName, gson.toJson(event), event.instanceId);
+    return kinesisPublisher.publish(streamName, event);
   }
 
   @Override
