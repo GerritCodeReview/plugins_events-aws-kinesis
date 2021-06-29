@@ -123,6 +123,25 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
   @Test
   @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
   @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
+  public void shouldConsumeAnEventWithoutInstanceId() throws Exception {
+    String streamName = UUID.randomUUID().toString();
+    createStreamAndWait(streamName, STREAM_CREATION_TIMEOUT);
+
+    EventConsumerCounter eventConsumerCounter = new EventConsumerCounter();
+    kinesisBroker().receiveAsync(streamName, eventConsumerCounter);
+
+    Event event = eventMessage();
+    event.instanceId = null;
+
+    kinesisBroker().send(streamName, event);
+    WaitUtil.waitUntil(
+        () -> eventConsumerCounter.getConsumedMessages().size() == 1, WAIT_FOR_CONSUMPTION);
+    compareEvents(eventConsumerCounter.getConsumedMessages().get(0), event);
+  }
+
+  @Test
+  @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
+  @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
   public void shouldReplayMessages() throws Exception {
     String streamName = UUID.randomUUID().toString();
     createStreamAndWait(streamName, STREAM_CREATION_TIMEOUT);
