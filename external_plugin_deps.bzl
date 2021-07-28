@@ -1,4 +1,4 @@
-load("//tools/bzl:maven_jar.bzl", "maven_jar")
+load("//tools/bzl:maven_jar.bzl", "MAVEN_LOCAL", "maven_jar")
 
 AWS_SDK_VER = "2.16.19"
 AWS_KINESIS_VER = "2.3.4"
@@ -109,8 +109,9 @@ def external_plugin_deps():
 
     maven_jar(
         name = "events-broker",
-        artifact = "com.gerritforge:events-broker:3.4.0.4",
-        sha1 = "8d361d863382290e33828116e65698190118d0f1",
+        artifact = "com.gerritforge:events-broker:3.5.0",
+        repository = MAVEN_LOCAL,
+        sha1 = "4394af9bb8e89ad1ef442fbff470f53ef12f5f18",
     )
 
     maven_jar(
