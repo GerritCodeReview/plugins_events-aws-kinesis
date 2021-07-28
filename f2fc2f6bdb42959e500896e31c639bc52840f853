@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45fa6888_ba0bdf6a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2021-07-28T12:53:17Z",
+      "side": 1,
+      "message": "Needs the publishing of events-broker first[1].\n\n\n[1]https://gerrit-review.googlesource.com/c/modules/events-broker/+/312870/3",
+      "revId": "f2fc2f6bdb42959e500896e31c639bc52840f853",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
