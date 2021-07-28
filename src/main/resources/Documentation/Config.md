@@ -91,11 +91,6 @@ The events-aws-kinesis plugin is configured by adding a plugin stanza in the
   Default: WARN
   Allowed values:OFF|FATAL|ERROR|WARN|INFO|DEBUG|TRACE|ALL
 
-`plugin.events-aws-kinesis.streamEventsTopic`
-:   Optional. Name of the kinesis topic for stream events. events-aws-kinesis
-    plugin exposes all stream events under this topic name.
-    Default: gerrit
-
 `plugin.events-aws-kinesis.sendAsync`
 :   Optional. Whether to send messages to Kinesis asynchronously, without
     waiting for the result of the operation.
