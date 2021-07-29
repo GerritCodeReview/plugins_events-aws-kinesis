@@ -16,6 +16,29 @@
       "message": "Needs the publishing of events-broker first[1].\n\n\n[1]https://gerrit-review.googlesource.com/c/modules/events-broker/+/312870/3",
       "revId": "f2fc2f6bdb42959e500896e31c639bc52840f853",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "155f67e7_3edc3bd0",
+        "filename": "external_plugin_deps.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2021-07-29T07:59:09Z",
+      "side": 1,
+      "message": "This should be 3.5.0-alpha-202107290338",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 57
+      },
+      "revId": "f2fc2f6bdb42959e500896e31c639bc52840f853",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
