@@ -23,6 +23,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventGson;
+import com.google.gerrit.server.events.EventListener;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -34,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 @Singleton
-class KinesisPublisher {
+class KinesisPublisher implements EventListener {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private final KinesisProducer kinesisProducer;
@@ -53,6 +54,11 @@ class KinesisPublisher {
     this.kinesisProducer = kinesisProducer;
     this.configuration = configuration;
     this.callBackExecutor = callBackExecutor;
+  }
+
+  @Override
+  public void onEvent(Event event) {
+    publish(configuration.getStreamEventsTopic(), event);
   }
 
   ListenableFuture<Boolean> publish(String streamName, Event event) {

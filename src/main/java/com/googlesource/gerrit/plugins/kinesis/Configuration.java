@@ -31,6 +31,7 @@ import software.amazon.kinesis.common.InitialPositionInStream;
 class Configuration {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final String DEFAULT_NUMBER_OF_SUBSCRIBERS = "6";
+  private static final String DEFAULT_STREAM_EVENTS_TOPIC = "gerrit";
   private static final String DEFAULT_INITIAL_POSITION = "latest";
   private static final Long DEFAULT_POLLING_INTERVAL_MS = 1000L;
   private static final Integer DEFAULT_MAX_RECORDS = 100;
@@ -41,6 +42,7 @@ class Configuration {
   private static final Boolean DEFAULT_SEND_ASYNC = true;
 
   private final String applicationName;
+  private final String streamEventsTopic;
   private final int numberOfSubscribers;
   private final InitialPositionInStream initialPosition;
   private final Optional<Region> region;
@@ -60,6 +62,7 @@ class Configuration {
     this.region = Optional.ofNullable(getStringParam(pluginConfig, "region", null)).map(Region::of);
     this.endpoint =
         Optional.ofNullable(getStringParam(pluginConfig, "endpoint", null)).map(URI::create);
+    this.streamEventsTopic = getStringParam(pluginConfig, "topic", DEFAULT_STREAM_EVENTS_TOPIC);
     this.numberOfSubscribers =
         Integer.parseInt(
             getStringParam(pluginConfig, "numberOfSubscribers", DEFAULT_NUMBER_OF_SUBSCRIBERS));
@@ -112,6 +115,10 @@ class Configuration {
         maxRecords,
         region.map(r -> String.format("|region: %s", r.id())).orElse(""),
         endpoint.map(e -> String.format("|endpoint: %s", e.toASCIIString())).orElse(""));
+  }
+
+  public String getStreamEventsTopic() {
+    return streamEventsTopic;
   }
 
   public int getNumberOfSubscribers() {
