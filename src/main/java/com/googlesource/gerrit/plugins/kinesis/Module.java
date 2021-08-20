@@ -35,7 +35,13 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 
 public class Module extends LifecycleModule {
+  private final Configuration configuration;
   private Set<TopicSubscriber> activeConsumers = Sets.newHashSet();
+
+  @Inject
+  Module(Configuration configuration) {
+    this.configuration = configuration;
+  }
 
   /**
    * By default the events-broker library (loaded directly by the multi-site) registers a noop
@@ -75,7 +81,9 @@ public class Module extends LifecycleModule {
     DynamicItem.bind(binder(), BrokerApi.class).to(KinesisBrokerApi.class).in(Scopes.SINGLETON);
     DynamicSet.bind(binder(), LifecycleListener.class).to(KinesisBrokerLifeCycleManager.class);
     factory(KinesisConsumer.Factory.class);
-    DynamicSet.bind(binder(), EventListener.class).to(KinesisPublisher.class);
+    if (configuration.isSendStreamEvents()) {
+      DynamicSet.bind(binder(), EventListener.class).to(KinesisPublisher.class);
+    }
     listener().to(AWSLogLevelListener.class);
   }
 }

@@ -57,6 +57,7 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
   private static final Duration WAIT_FOR_CONSUMPTION = Duration.ofSeconds(120);
   private static final Duration STREAM_CREATION_TIMEOUT = Duration.ofSeconds(10);
   private static final long SEND_TIMEOUT_MILLIS = 200;
+  private static final String STREAM_EVENTS = "stream_events";
 
   private static final int LOCALSTACK_PORT = 4566;
 
@@ -217,6 +218,28 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
 
     ListenableFuture<Boolean> result = kinesisBroker().send(streamName, eventMessage());
     assertThat(result.get()).isTrue();
+  }
+
+  @Test
+  @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
+  @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
+  @GerritConfig(name = "plugin.events-aws-kinesis.topic", value = STREAM_EVENTS)
+  @GerritConfig(name = "plugin.events-aws-kinesis.sendStreamEvents", value = "true")
+  public void shouldSendStreamEventsWhenEnabled() throws Exception {
+    createStreamAndWait(STREAM_EVENTS, STREAM_CREATION_TIMEOUT);
+
+    EventConsumerCounter eventConsumerCounter = new EventConsumerCounter();
+    kinesisBroker().receiveAsync(STREAM_EVENTS, eventConsumerCounter);
+
+    createChange();
+
+    // There are 4 events are received in the following order:
+    // 1. refUpdate:        ref: refs/sequences/changes
+    // 2. refUpdate:        ref: refs/changes/01/1/1
+    // 3. refUpdate:        ref: refs/changes/01/1/meta
+    // 4. patchset-created: ref: refs/changes/01/1/1
+    WaitUtil.waitUntil(
+        () -> eventConsumerCounter.getConsumedMessages().size() == 4, WAIT_FOR_CONSUMPTION);
   }
 
   public KinesisBrokerApi kinesisBroker() {

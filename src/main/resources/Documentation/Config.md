@@ -96,6 +96,10 @@ The events-aws-kinesis plugin is configured by adding a plugin stanza in the
     plugin exposes all stream events under this topic name.
     Default: gerrit
 
+`plugin.events-aws-kinesis.sendStreamEvents`
+:   Whether to send stream events to the `streamEventsTopic` topic.
+    Default: false
+
 `plugin.events-aws-kinesis.sendAsync`
 :   Optional. Whether to send messages to Kinesis asynchronously, without
     waiting for the result of the operation.
