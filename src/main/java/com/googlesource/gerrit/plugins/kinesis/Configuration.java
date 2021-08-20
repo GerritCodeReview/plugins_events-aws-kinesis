@@ -40,6 +40,7 @@ class Configuration {
   private static final Long DEFAULT_SHUTDOWN_TIMEOUT_MS = 20000L;
   private static final Level DEFAULT_AWS_LIB_LOG_LEVEL = Level.WARN;
   private static final Boolean DEFAULT_SEND_ASYNC = true;
+  private static final Boolean DEFAULT_SEND_STREAM_EVENTS = false;
 
   private final String applicationName;
   private final String streamEventsTopic;
@@ -54,6 +55,7 @@ class Configuration {
   private final Long shutdownTimeoutMs;
   private final Level awsLibLogLevel;
   private final Boolean sendAsync;
+  private final Boolean sendStreamEvents;
 
   @Inject
   public Configuration(PluginConfigFactory configFactory, @PluginName String pluginName) {
@@ -63,6 +65,10 @@ class Configuration {
     this.endpoint =
         Optional.ofNullable(getStringParam(pluginConfig, "endpoint", null)).map(URI::create);
     this.streamEventsTopic = getStringParam(pluginConfig, "topic", DEFAULT_STREAM_EVENTS_TOPIC);
+    this.sendStreamEvents =
+        Optional.ofNullable(getStringParam(pluginConfig, "sendStreamEvents", null))
+            .map(Boolean::new)
+            .orElse(DEFAULT_SEND_STREAM_EVENTS);
     this.numberOfSubscribers =
         Integer.parseInt(
             getStringParam(pluginConfig, "numberOfSubscribers", DEFAULT_NUMBER_OF_SUBSCRIBERS));
@@ -178,5 +184,9 @@ class Configuration {
 
   public Boolean isSendAsync() {
     return sendAsync;
+  }
+
+  public Boolean isSendStreamEvents() {
+    return sendStreamEvents;
   }
 }
