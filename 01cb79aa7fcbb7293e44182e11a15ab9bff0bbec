@@ -34,6 +34,42 @@
       "parentUuid": "3482a6a3_c5216612",
       "revId": "01cb79aa7fcbb7293e44182e11a15ab9bff0bbec",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0f18c08_cfb80db1",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-27T15:05:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3ae93c8c_4351f3a1",
+      "revId": "01cb79aa7fcbb7293e44182e11a15ab9bff0bbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9831db7_52011f9b",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisEventsIT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-27T15:05:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3ae93c8c_4351f3a1",
+      "revId": "01cb79aa7fcbb7293e44182e11a15ab9bff0bbec",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
