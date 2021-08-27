@@ -30,17 +30,33 @@ import software.amazon.kinesis.common.InitialPositionInStream;
 @Singleton
 class Configuration {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-  private static final String DEFAULT_NUMBER_OF_SUBSCRIBERS = "6";
-  private static final String DEFAULT_STREAM_EVENTS_TOPIC = "gerrit";
-  private static final String DEFAULT_INITIAL_POSITION = "latest";
-  private static final Long DEFAULT_POLLING_INTERVAL_MS = 1000L;
-  private static final Integer DEFAULT_MAX_RECORDS = 100;
-  private static final Long DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS = 6000L;
-  private static final Long DEFAULT_PUBLISH_TIMEOUT_MS = 6000L;
-  private static final Long DEFAULT_SHUTDOWN_TIMEOUT_MS = 20000L;
-  private static final Level DEFAULT_AWS_LIB_LOG_LEVEL = Level.WARN;
-  private static final Boolean DEFAULT_SEND_ASYNC = true;
-  private static final Boolean DEFAULT_SEND_STREAM_EVENTS = false;
+
+  static final String REGION_FIELD = "region";
+  static final String ENDPOINT_FIELD = "endpoint";
+  static final String STREAM_EVENTS_TOPIC_FIELD = "topic";
+  static final String NUMBER_OF_SUBSCRIBERS_FIELD = "numberOfSubscribers";
+  static final String APPLICATION_NAME_FIELD = "applicationName";
+  static final String INITIAL_POSITION_FIELD = "initialPosition";
+  static final String POLLING_INTERVAL_MS_FIELD = "pollingIntervalMs";
+  static final String MAX_RECORDS_FIELD = "maxRecords";
+  static final String PUBLISH_SINGLE_REQUEST_TIMEOUT_MS_FIELD = "publishSingleRequestTimeoutMs";
+  static final String PUBLISH_TIMEOUT_MS_FIELD = "publishTimeoutMs";
+  static final String SHUTDOWN_MS_FIELD = "shutdownTimeoutMs";
+  static final String AWS_LIB_LOG_LEVEL_FIELD = "awsLibLogLevel";
+  static final String SEND_ASYNC_FIELD = "sendAsync";
+  static final String SEND_STREAM_EVENTS_FIELD = "sendStreamEvents";
+
+  static final String DEFAULT_NUMBER_OF_SUBSCRIBERS = "6";
+  static final String DEFAULT_STREAM_EVENTS_TOPIC = "gerrit";
+  static final String DEFAULT_INITIAL_POSITION = "latest";
+  static final Long DEFAULT_POLLING_INTERVAL_MS = 1000L;
+  static final Integer DEFAULT_MAX_RECORDS = 100;
+  static final Long DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS = 6000L;
+  static final Long DEFAULT_PUBLISH_TIMEOUT_MS = 6000L;
+  static final Long DEFAULT_SHUTDOWN_TIMEOUT_MS = 20000L;
+  static final Level DEFAULT_AWS_LIB_LOG_LEVEL = Level.WARN;
+  static final Boolean DEFAULT_SEND_ASYNC = true;
+  static final Boolean DEFAULT_SEND_STREAM_EVENTS = false;
 
   private final String applicationName;
   private final String streamEventsTopic;
@@ -61,66 +77,70 @@ class Configuration {
   public Configuration(PluginConfigFactory configFactory, @PluginName String pluginName) {
     PluginConfig pluginConfig = configFactory.getFromGerritConfig(pluginName);
 
-    this.region = Optional.ofNullable(getStringParam(pluginConfig, "region", null)).map(Region::of);
+    this.region =
+        Optional.ofNullable(getStringParam(pluginConfig, REGION_FIELD, null)).map(Region::of);
     this.endpoint =
-        Optional.ofNullable(getStringParam(pluginConfig, "endpoint", null)).map(URI::create);
-    this.streamEventsTopic = getStringParam(pluginConfig, "topic", DEFAULT_STREAM_EVENTS_TOPIC);
+        Optional.ofNullable(getStringParam(pluginConfig, ENDPOINT_FIELD, null)).map(URI::create);
+    this.streamEventsTopic =
+        getStringParam(pluginConfig, STREAM_EVENTS_TOPIC_FIELD, DEFAULT_STREAM_EVENTS_TOPIC);
     this.sendStreamEvents =
-        Optional.ofNullable(getStringParam(pluginConfig, "sendStreamEvents", null))
+        Optional.ofNullable(getStringParam(pluginConfig, SEND_STREAM_EVENTS_FIELD, null))
             .map(Boolean::new)
             .orElse(DEFAULT_SEND_STREAM_EVENTS);
     this.numberOfSubscribers =
         Integer.parseInt(
-            getStringParam(pluginConfig, "numberOfSubscribers", DEFAULT_NUMBER_OF_SUBSCRIBERS));
-    this.applicationName = getStringParam(pluginConfig, "applicationName", pluginName);
+            getStringParam(
+                pluginConfig, NUMBER_OF_SUBSCRIBERS_FIELD, DEFAULT_NUMBER_OF_SUBSCRIBERS));
+    this.applicationName = getStringParam(pluginConfig, APPLICATION_NAME_FIELD, pluginName);
 
     this.initialPosition =
         InitialPositionInStream.valueOf(
-            getStringParam(pluginConfig, "initialPosition", DEFAULT_INITIAL_POSITION)
+            getStringParam(pluginConfig, INITIAL_POSITION_FIELD, DEFAULT_INITIAL_POSITION)
                 .toUpperCase());
 
     this.pollingIntervalMs =
-        Optional.ofNullable(getStringParam(pluginConfig, "pollingIntervalMs", null))
+        Optional.ofNullable(getStringParam(pluginConfig, POLLING_INTERVAL_MS_FIELD, null))
             .map(Long::parseLong)
             .orElse(DEFAULT_POLLING_INTERVAL_MS);
 
     this.maxRecords =
-        Optional.ofNullable(getStringParam(pluginConfig, "maxRecords", null))
+        Optional.ofNullable(getStringParam(pluginConfig, MAX_RECORDS_FIELD, null))
             .map(Integer::parseInt)
             .orElse(DEFAULT_MAX_RECORDS);
 
     this.publishSingleRequestTimeoutMs =
-        Optional.ofNullable(getStringParam(pluginConfig, "publishSingleRequestTimeoutMs", null))
+        Optional.ofNullable(
+                getStringParam(pluginConfig, PUBLISH_SINGLE_REQUEST_TIMEOUT_MS_FIELD, null))
             .map(Long::parseLong)
             .orElse(DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS);
 
     this.publishTimeoutMs =
-        Optional.ofNullable(getStringParam(pluginConfig, "publishTimeoutMs", null))
+        Optional.ofNullable(getStringParam(pluginConfig, PUBLISH_TIMEOUT_MS_FIELD, null))
             .map(Long::parseLong)
             .orElse(DEFAULT_PUBLISH_TIMEOUT_MS);
 
     this.shutdownTimeoutMs =
-        Optional.ofNullable(getStringParam(pluginConfig, "shutdownTimeoutMs", null))
+        Optional.ofNullable(getStringParam(pluginConfig, SHUTDOWN_MS_FIELD, null))
             .map(Long::parseLong)
             .orElse(DEFAULT_SHUTDOWN_TIMEOUT_MS);
 
     this.awsLibLogLevel =
-        Optional.ofNullable(getStringParam(pluginConfig, "awsLibLogLevel", null))
+        Optional.ofNullable(getStringParam(pluginConfig, AWS_LIB_LOG_LEVEL_FIELD, null))
             .map(l -> Level.toLevel(l, DEFAULT_AWS_LIB_LOG_LEVEL))
             .orElse(DEFAULT_AWS_LIB_LOG_LEVEL);
 
     this.sendAsync =
-        Optional.ofNullable(getStringParam(pluginConfig, "sendAsync", null))
+        Optional.ofNullable(getStringParam(pluginConfig, SEND_ASYNC_FIELD, null))
             .map(Boolean::new)
             .orElse(DEFAULT_SEND_ASYNC);
 
     logger.atInfo().log(
         "Kinesis client. Application:'%s'|PollingInterval: %s|maxRecords: %s%s%s",
-        applicationName,
-        pollingIntervalMs,
-        maxRecords,
-        region.map(r -> String.format("|region: %s", r.id())).orElse(""),
-        endpoint.map(e -> String.format("|endpoint: %s", e.toASCIIString())).orElse(""));
+        this.applicationName,
+        this.pollingIntervalMs,
+        this.maxRecords,
+        this.region.map(r -> String.format("|region: %s", r.id())).orElse(""),
+        this.endpoint.map(e -> String.format("|endpoint: %s", e.toASCIIString())).orElse(""));
   }
 
   public String getStreamEventsTopic() {
