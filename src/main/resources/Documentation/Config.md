@@ -114,3 +114,28 @@ Overrides
 
 Note that System properties always override and take priority over the above
 gerrit.config configuration.
+
+Gerrit init integration
+-----------------------
+
+The plugin provides an init step that helps to set up the configuration.
+
+```
+*** events-aws-kinesis plugin
+***
+
+AWS region (leave blank for default provider chain) :
+AWS endpoint (dev or testing, not for production) :
+Should send stream events?     [y/N]? y
+Stream events topic            [gerrit]:
+Number of subscribers          [6]:
+Application name               [events-aws-kinesis]:
+Initial position               [latest]:
+Polling Interval (ms)          [1000]:
+Maximum number of record to fetch [100]:
+The maximum total time waiting for a publish result (ms) [6000]:
+The maximum total time waiting for publishing, including retries [6000]:
+The maximum total time waiting when shutting down (ms) [20000]:
+Which level AWS libraries should log at [WARN]:
+Should send messages asynchronously? [Y/n]?
+```
