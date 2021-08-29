@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fffe115_ee9b92bd",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-29T15:56:30Z",
+      "side": 1,
+      "message": "is this part of this change? It seems unrelated",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 88
+      },
+      "revId": "02acc8199df61085ace47710d394358e79641102",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af614fdb_f0baab03",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/InitConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-29T15:56:30Z",
+      "side": 1,
+      "message": "remove \"The\" for consistency with the other messages.",
+      "range": {
+        "startLine": 95,
+        "startChar": 9,
+        "endLine": 95,
+        "endChar": 12
+      },
+      "revId": "02acc8199df61085ace47710d394358e79641102",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e2ee5a8_eee09e8a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/InitConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-29T15:56:30Z",
+      "side": 1,
+      "message": "remove \"The\" for consistency with the other messages.",
+      "range": {
+        "startLine": 100,
+        "startChar": 9,
+        "endLine": 100,
+        "endChar": 12
+      },
+      "revId": "02acc8199df61085ace47710d394358e79641102",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaddbc43_902912eb",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/InitConfig.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2021-08-29T15:56:30Z",
+      "side": 1,
+      "message": "remove \"The\" for consistency with the other messages.",
+      "range": {
+        "startLine": 105,
+        "startChar": 9,
+        "endLine": 105,
+        "endChar": 12
+      },
+      "revId": "02acc8199df61085ace47710d394358e79641102",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
