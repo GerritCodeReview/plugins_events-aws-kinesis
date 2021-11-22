@@ -20,15 +20,18 @@ import com.google.common.flogger.FluentLogger;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import software.amazon.awssdk.regions.providers.AwsRegionProviderChain;
 
 @Singleton
 public class KinesisProducerProvider implements Provider<KinesisProducer> {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private final Configuration configuration;
+  private final AwsRegionProviderChain regionProvider;
 
   @Inject
-  KinesisProducerProvider(Configuration configuration) {
+  KinesisProducerProvider(Configuration configuration, AwsRegionProviderChain regionProvider) {
     this.configuration = configuration;
+    this.regionProvider = regionProvider;
   }
 
   @Override
@@ -39,7 +42,8 @@ public class KinesisProducerProvider implements Provider<KinesisProducer> {
             .setMaxConnections(1)
             .setRequestTimeout(configuration.getPublishSingleRequestTimeoutMs());
 
-    configuration.getRegion().ifPresent(r -> conf.setRegion(r.toString()));
+    conf.setRegion(configuration.getRegion().orElseGet(regionProvider::getRegion).toString());
+
     configuration
         .getEndpoint()
         .ifPresent(
@@ -52,7 +56,7 @@ public class KinesisProducerProvider implements Provider<KinesisProducer> {
     logger.atInfo().log(
         "Kinesis producer configured. Request Timeout (ms):'%s'%s%s",
         configuration.getPublishSingleRequestTimeoutMs(),
-        configuration.getRegion().map(r -> String.format("|region: '%s'", r.id())).orElse(""),
+        String.format("|region: '%s'", conf.getRegion()),
         configuration
             .getEndpoint()
             .map(e -> String.format("|endpoint: '%s'", e.toASCIIString()))
