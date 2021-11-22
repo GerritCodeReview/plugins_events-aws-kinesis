@@ -65,6 +65,7 @@ junit_tests(
         "@amazon-http-client-spi//jar",
         "@amazon-kinesis-client//jar",
         "@amazon-kinesis//jar",
+        "@awssdk-kinesis-producer//jar",
         "@events-broker//jar",
     ],
 )
