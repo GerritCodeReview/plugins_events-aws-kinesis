@@ -63,7 +63,7 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
   @Override
   public void processRecords(ProcessRecordsInput processRecordsInput) {
     try {
-      logger.atInfo().log("Processing %s record(s)", processRecordsInput.records().size());
+      logger.atFine().log("Processing %s record(s)", processRecordsInput.records().size());
       processRecordsInput
           .records()
           .forEach(
