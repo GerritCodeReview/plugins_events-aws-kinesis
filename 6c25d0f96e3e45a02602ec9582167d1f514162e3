@@ -16,6 +16,24 @@
       "message": "nit: the newest testcontainers version is `1.17.1`, can it be used?",
       "revId": "6c25d0f96e3e45a02602ec9582167d1f514162e3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a8078c1_e32413c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-04-20T19:16:19Z",
+      "side": 1,
+      "message": "The testcontainer dependency that was exposed by gerrit was 1.15.3 [1], so I just wanted to re-instantiate that one.\n\nYou are right though, we should probably look at bumping up deps versions (not just this one).\n\n[1] https://gerrit.googlesource.com/gerrit/+/fd75535d2772e8b48752721bf6825a92109c33e7/tools/nongoogle.bzl#9",
+      "parentUuid": "7605689d_cd11c9b9",
+      "revId": "6c25d0f96e3e45a02602ec9582167d1f514162e3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
