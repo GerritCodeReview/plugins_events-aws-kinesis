@@ -38,6 +38,7 @@ class Configuration {
   private static final Long DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS = 6000L;
   private static final Long DEFAULT_PUBLISH_TIMEOUT_MS = 6000L;
   private static final Long DEFAULT_SHUTDOWN_TIMEOUT_MS = 20000L;
+  private static final Long DEFAULT_CHECKPOINT_INTERVAL_MS = 5 * 60000L; // 5 min
   private static final Level DEFAULT_AWS_LIB_LOG_LEVEL = Level.WARN;
   private static final Boolean DEFAULT_SEND_ASYNC = true;
 
@@ -52,6 +53,7 @@ class Configuration {
   private final Long publishTimeoutMs;
   private final Long publishSingleRequestTimeoutMs;
   private final Long shutdownTimeoutMs;
+  private final Long checkpointIntervalMs;
   private final Level awsLibLogLevel;
   private final Boolean sendAsync;
 
@@ -97,6 +99,11 @@ class Configuration {
         Optional.ofNullable(getStringParam(pluginConfig, "shutdownTimeoutMs", null))
             .map(Long::parseLong)
             .orElse(DEFAULT_SHUTDOWN_TIMEOUT_MS);
+
+    this.checkpointIntervalMs =
+        Optional.ofNullable(getStringParam(pluginConfig, "checkpointIntervalMs", null))
+            .map(Long::parseLong)
+            .orElse(DEFAULT_CHECKPOINT_INTERVAL_MS);
 
     this.awsLibLogLevel =
         Optional.ofNullable(getStringParam(pluginConfig, "awsLibLogLevel", null))
@@ -170,6 +177,10 @@ class Configuration {
 
   public Long getShutdownTimeoutMs() {
     return shutdownTimeoutMs;
+  }
+
+  public Long getCheckpointIntervalMs() {
+    return checkpointIntervalMs;
   }
 
   public Level getAwsLibLogLevel() {

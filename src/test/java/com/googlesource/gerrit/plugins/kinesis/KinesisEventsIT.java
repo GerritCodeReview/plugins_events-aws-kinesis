@@ -61,7 +61,7 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
   private static final int LOCALSTACK_PORT = 4566;
 
   private LocalStackContainer localstack =
-      new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.17.5"))
+      new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.13.3-arm64"))
           .withServices(DYNAMODB, KINESIS, CLOUDWATCH)
           .withEnv("USE_SSL", "true")
           .withExposedPorts(LOCALSTACK_PORT);
