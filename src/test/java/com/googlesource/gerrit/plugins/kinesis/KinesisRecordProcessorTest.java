@@ -38,11 +38,14 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kinesis.model.Record;
+import software.amazon.kinesis.lifecycle.events.InitializationInput;
 import software.amazon.kinesis.lifecycle.events.ProcessRecordsInput;
 import software.amazon.kinesis.retrieval.KinesisClientRecord;
+import software.amazon.kinesis.retrieval.kpl.ExtendedSequenceNumber;
 
 @RunWith(MockitoJUnitRunner.class)
 public class KinesisRecordProcessorTest {
@@ -54,11 +57,41 @@ public class KinesisRecordProcessorTest {
   @Captor ArgumentCaptor<Event> eventMessageCaptor;
   @Mock OneOffRequestContext oneOffCtx;
   @Mock ManualRequestContext requestContext;
+  @Mock Configuration configuration;
 
   @Before
   public void setup() {
     when(oneOffCtx.open()).thenReturn(requestContext);
-    objectUnderTest = new KinesisRecordProcessor(succeedingConsumer, oneOffCtx, eventDeserializer);
+    objectUnderTest =
+        new KinesisRecordProcessor(succeedingConsumer, oneOffCtx, eventDeserializer, configuration);
+  }
+
+  @Test
+  public void shouldNotCheckpointBeforeIntervalIsExpired() {
+    when(configuration.getCheckpointIntervalMs()).thenReturn(10000L);
+    Event event = new ProjectCreatedEvent();
+
+    initializeRecordProcessor();
+
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(event));
+    ProcessRecordsInput processRecordsInputSpy = Mockito.spy(kinesisInput);
+    objectUnderTest.processRecords(processRecordsInputSpy);
+
+    verify(processRecordsInputSpy, never()).checkpointer();
+  }
+
+  @Test
+  public void shouldCheckpointAfterIntervalIsExpired() throws InterruptedException {
+    when(configuration.getCheckpointIntervalMs()).thenReturn(0L);
+    Event event = new ProjectCreatedEvent();
+
+    initializeRecordProcessor();
+
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(event));
+    ProcessRecordsInput processRecordsInputSpy = Mockito.spy(kinesisInput);
+    objectUnderTest.processRecords(processRecordsInputSpy);
+
+    verify(processRecordsInputSpy, times(1)).checkpointer();
   }
 
   @Test
@@ -152,5 +185,14 @@ public class KinesisRecordProcessorTest {
             .records(Collections.singletonList(KinesisClientRecord.fromRecord(kinesisRecord)))
             .build();
     return kinesisInput;
+  }
+
+  private void initializeRecordProcessor() {
+    InitializationInput initializationInput =
+        InitializationInput.builder()
+            .shardId("shard-0000")
+            .extendedSequenceNumber(new ExtendedSequenceNumber("0000"))
+            .build();
+    objectUnderTest.initialize(initializationInput);
   }
 }
