@@ -38,6 +38,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kinesis.model.Record;
@@ -54,11 +55,40 @@ public class KinesisRecordProcessorTest {
   @Captor ArgumentCaptor<Event> eventMessageCaptor;
   @Mock OneOffRequestContext oneOffCtx;
   @Mock ManualRequestContext requestContext;
+  @Mock Configuration configuration;
 
   @Before
   public void setup() {
     when(oneOffCtx.open()).thenReturn(requestContext);
-    objectUnderTest = new KinesisRecordProcessor(succeedingConsumer, oneOffCtx, eventDeserializer);
+    objectUnderTest =
+        new KinesisRecordProcessor(succeedingConsumer, oneOffCtx, eventDeserializer, configuration);
+  }
+
+  @Test
+  public void shouldNotCheckpointBeforeIntervalIsExpired() {
+    Event event = new ProjectCreatedEvent();
+    event.instanceId = UUID.randomUUID().toString();
+
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(event));
+    ProcessRecordsInput processRecordsInputSpy = Mockito.spy(kinesisInput);
+
+    objectUnderTest.processRecords(processRecordsInputSpy);
+
+    verify(processRecordsInputSpy, never()).checkpointer();
+  }
+
+  @Test
+  public void shouldCheckpointAfterIntervalIsExpired() throws InterruptedException {
+    when(configuration.getCheckpointIntervalMs()).thenReturn(0L);
+    Event event = new ProjectCreatedEvent();
+    event.instanceId = UUID.randomUUID().toString();
+
+    ProcessRecordsInput kinesisInput = sampleMessage(gson.toJson(event));
+    ProcessRecordsInput processRecordsInputSpy = Mockito.spy(kinesisInput);
+
+    objectUnderTest.processRecords(processRecordsInputSpy);
+
+    verify(processRecordsInputSpy, times(1)).checkpointer();
   }
 
   @Test

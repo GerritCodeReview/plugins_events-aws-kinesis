@@ -81,6 +81,10 @@ The events-aws-kinesis plugin is configured by adding a plugin stanza in the
   kinesis consumers.
   Default: 20000
 
+`plugin.events-aws-kinesis.checkpointIntervalMs`
+: Optional. The interval between checkpoints (milliseconds).
+Default: 300000 (5 minutes)
+
 `plugin.events-aws-kinesis.awsLibLogLevel`
 : Optional. Which level AWS libraries should log at.
   This plugin delegates most complex tasks associated to the production and
