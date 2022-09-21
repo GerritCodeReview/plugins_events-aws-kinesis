@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5afaa461_d0a6a0f2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-09-21T08:06:03Z",
+      "side": 1,
+      "message": "Could we use a time util here and allow the user to express this in any duration?\n\n5 minutes\n1 hour\n300 seconds\n\netc?",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 52
+      },
+      "revId": "306f32983cda0146ae156acfcfed8be7b75fe910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe44359_4e9853f1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-09-21T08:06:03Z",
+      "side": 1,
+      "message": "This is the same logic of line 97, perhaps we should factor this out in a `setNexCheckpointTime()` method?",
+      "range": {
+        "startLine": 67,
+        "startChar": 1,
+        "endLine": 68,
+        "endChar": 77
+      },
+      "revId": "306f32983cda0146ae156acfcfed8be7b75fe910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
