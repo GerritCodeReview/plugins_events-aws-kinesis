@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d065f90_509a0064",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-09-21T13:58:13Z",
+      "side": 1,
+      "message": "I thought about that, but than I realized it might be confusing having a mix bag of durations and numbers in the configuration, hence I decided to be consistent with the other settings.\n\nMaybe I could move all the paramenters to a duration in a followup change? WDYT?",
+      "parentUuid": "5afaa461_d0a6a0f2",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 52
+      },
+      "revId": "306f32983cda0146ae156acfcfed8be7b75fe910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbe44359_4e9853f1",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-21T08:06:03Z",
       "side": 1,
       "message": "This is the same logic of line 97, perhaps we should factor this out in a `setNexCheckpointTime()` method?",
+      "range": {
+        "startLine": 67,
+        "startChar": 1,
+        "endLine": 68,
+        "endChar": 77
+      },
+      "revId": "306f32983cda0146ae156acfcfed8be7b75fe910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4fa9100_baa18a6c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-09-21T13:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbe44359_4e9853f1",
       "range": {
         "startLine": 67,
         "startChar": 1,
@@ -64,6 +112,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3d6da64_8ba9ceef",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-09-21T13:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ddda993_a2938166",
+      "revId": "306f32983cda0146ae156acfcfed8be7b75fe910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f82a159e_14b13389",
@@ -77,6 +143,30 @@
       "writtenOn": "2022-09-21T08:30:38Z",
       "side": 1,
       "message": "nit, should we factor this out in a private static method?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 52
+      },
+      "revId": "306f32983cda0146ae156acfcfed8be7b75fe910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f294e384_7f1639d8",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-09-21T13:58:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f82a159e_14b13389",
       "range": {
         "startLine": 75,
         "startChar": 0,
