@@ -16,6 +16,109 @@
       "message": "LGTM but I will let @syntonyze@gmail.com to accept it",
       "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e076b2d2_f31d14b4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-09-22T07:30:46Z",
+      "side": 1,
+      "message": "The private field `kinesisShardId` is initialized with `null` and it is not final because it needs to be set once by `initialize`.\n\nThen it is used only at L125 for logging, in the `checkpoint()` method.\n\nHowever, every caller of `checkpoint()` has visibility on what the shardId actually is:\n\n- `shardEnded` has access to `ShardEndedInput`\n- `shutdownRequested` has access to `ShutdownRequestedInput`\n- `processRecords` has access to `ProcessRecordsInput`\n\nCould we get the `shardId` from those `input` objects and pass an additional parameter to `checpoint()` so that we can remove this extra `kinesisShardId` field?",
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5398c19_49869ed4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-09-22T07:30:46Z",
+      "side": 1,
+      "message": "typo: setNextCheckpointTime",
+      "range": {
+        "startLine": 102,
+        "startChar": 15,
+        "endLine": 102,
+        "endChar": 35
+      },
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "100e7df7_a743a130",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-09-22T07:30:46Z",
+      "side": 1,
+      "message": "nit: could use `atSever().withCause()` here",
+      "range": {
+        "startLine": 131,
+        "startChar": 6,
+        "endLine": 131,
+        "endChar": 23
+      },
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00db4f96_8d57e1b8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-09-22T07:30:46Z",
+      "side": 1,
+      "message": "nit: could use atSever().withCause() here",
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df013c4d_67c9d46d",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-09-22T07:30:46Z",
+      "side": 1,
+      "message": "nit: `times(1)` is the default right? no need to be explicit about it",
+      "range": {
+        "startLine": 94,
+        "startChar": 35,
+        "endLine": 94,
+        "endChar": 43
+      },
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }

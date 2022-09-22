@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e94d383_8f6bf1c2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-09-22T07:30:46Z",
+      "side": 1,
+      "message": "Yep it makes sense @ponch78@gmail.com.\nResolving this.",
+      "parentUuid": "6d065f90_509a0064",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 52
+      },
+      "revId": "306f32983cda0146ae156acfcfed8be7b75fe910",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbe44359_4e9853f1",
