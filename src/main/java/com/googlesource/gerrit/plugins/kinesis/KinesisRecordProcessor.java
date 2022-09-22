@@ -24,11 +24,13 @@ import com.google.inject.assistedinject.Assisted;
 import java.util.function.Consumer;
 import software.amazon.kinesis.exceptions.InvalidStateException;
 import software.amazon.kinesis.exceptions.ShutdownException;
+import software.amazon.kinesis.exceptions.ThrottlingException;
 import software.amazon.kinesis.lifecycle.events.InitializationInput;
 import software.amazon.kinesis.lifecycle.events.LeaseLostInput;
 import software.amazon.kinesis.lifecycle.events.ProcessRecordsInput;
 import software.amazon.kinesis.lifecycle.events.ShardEndedInput;
 import software.amazon.kinesis.lifecycle.events.ShutdownRequestedInput;
+import software.amazon.kinesis.processor.RecordProcessorCheckpointer;
 import software.amazon.kinesis.processor.ShardRecordProcessor;
 
 class KinesisRecordProcessor implements ShardRecordProcessor {
@@ -40,21 +42,29 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
   private final Consumer<Event> recordProcessor;
   private final OneOffRequestContext oneOffCtx;
   private final EventDeserializer eventDeserializer;
+  private final Configuration configuration;
+
+  private long nextCheckpointTimeInMillis;
+  private String kinesisShardId;
 
   @Inject
   KinesisRecordProcessor(
       @Assisted Consumer<Event> recordProcessor,
       OneOffRequestContext oneOffCtx,
-      EventDeserializer eventDeserializer) {
+      EventDeserializer eventDeserializer,
+      Configuration configuration) {
     this.recordProcessor = recordProcessor;
     this.oneOffCtx = oneOffCtx;
     this.eventDeserializer = eventDeserializer;
+    this.configuration = configuration;
   }
 
   @Override
   public void initialize(InitializationInput initializationInput) {
+    kinesisShardId = initializationInput.shardId();
     logger.atInfo().log(
         "Initializing @ Sequence: %s", initializationInput.extendedSequenceNumber());
+    setNextCheckpointTime();
   }
 
   @Override
@@ -79,9 +89,19 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
                   logger.atSevere().withCause(e).log("Could not process event '%s'", jsonMessage);
                 }
               });
+
+      if (System.currentTimeMillis() >= nextCheckpointTimeInMillis) {
+        checkpoint(processRecordsInput.checkpointer());
+        setNextCheckpointTime();
+      }
     } catch (Throwable t) {
       logger.atSevere().withCause(t).log("Caught throwable while processing records. Aborting.");
     }
+  }
+
+  private void setNextCheckpointTime() {
+    nextCheckpointTimeInMillis =
+        System.currentTimeMillis() + configuration.getCheckpointIntervalMs();
   }
 
   @Override
@@ -91,22 +111,28 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
 
   @Override
   public void shardEnded(ShardEndedInput shardEndedInput) {
-    try {
-      logger.atInfo().log("Reached shard end checkpointing.");
-      shardEndedInput.checkpointer().checkpoint();
-    } catch (ShutdownException | InvalidStateException e) {
-      logger.atSevere().withCause(e).log("Exception while checkpointing at shard end. Giving up.");
-    }
+    logger.atInfo().log("Reached shard end checkpointing.");
+    checkpoint(shardEndedInput.checkpointer());
   }
 
   @Override
   public void shutdownRequested(ShutdownRequestedInput shutdownRequestedInput) {
+    logger.atInfo().log("Scheduler is shutting down, checkpointing.");
+    checkpoint(shutdownRequestedInput.checkpointer());
+  }
+
+  private void checkpoint(RecordProcessorCheckpointer checkpointer) {
+    logger.atInfo().log("Checkpointing shard: " + kinesisShardId);
     try {
-      logger.atInfo().log("Scheduler is shutting down, checkpointing.");
-      shutdownRequestedInput.checkpointer().checkpoint();
-    } catch (ShutdownException | InvalidStateException e) {
+      checkpointer.checkpoint();
+    } catch (ShutdownException se) {
+      logger.atInfo().log("Caught shutdown exception, skipping checkpoint.", se);
+    } catch (ThrottlingException e) {
+      logger.atSevere().withCause(e).log("Caught throttling exception, skipping checkpoint.", e);
+    } catch (InvalidStateException e) {
       logger.atSevere().withCause(e).log(
-          "Exception while checkpointing at requested shutdown. Giving up.");
+          "Cannot save checkpoint to the DynamoDB table used by the Amazon Kinesis Client Library.",
+          e);
     }
   }
 }
