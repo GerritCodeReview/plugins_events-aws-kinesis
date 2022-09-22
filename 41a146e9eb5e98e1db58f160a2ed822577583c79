@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8099f9e3_9eb613ca",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-09-22T15:16:34Z",
+      "side": 1,
+      "message": "Unfortunately not. Only `InitializationInput` gives access to the `shardId`.\n\nI could get rid of it since it is only used in the log, but I believe it is a useful information to log.",
+      "parentUuid": "e076b2d2_f31d14b4",
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5398c19_49869ed4",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
         "patchSetId": 4
@@ -48,6 +66,30 @@
       "writtenOn": "2022-09-22T07:30:46Z",
       "side": 1,
       "message": "typo: setNextCheckpointTime",
+      "range": {
+        "startLine": 102,
+        "startChar": 15,
+        "endLine": 102,
+        "endChar": 35
+      },
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3c0402a_ba39864a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-09-22T15:16:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5398c19_49869ed4",
       "range": {
         "startLine": 102,
         "startChar": 15,
@@ -81,6 +123,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "052d02a3_06075a63",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-09-22T15:16:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "100e7df7_a743a130",
+      "range": {
+        "startLine": 131,
+        "startChar": 6,
+        "endLine": 131,
+        "endChar": 23
+      },
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00db4f96_8d57e1b8",
@@ -98,6 +164,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb714cd9_afb824e5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-09-22T15:16:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00db4f96_8d57e1b8",
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df013c4d_67c9d46d",
@@ -111,6 +195,30 @@
       "writtenOn": "2022-09-22T07:30:46Z",
       "side": 1,
       "message": "nit: `times(1)` is the default right? no need to be explicit about it",
+      "range": {
+        "startLine": 94,
+        "startChar": 35,
+        "endLine": 94,
+        "endChar": 43
+      },
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90fc27dc_57f85d9a",
+        "filename": "src/test/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1054778
+      },
+      "writtenOn": "2022-09-22T15:16:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df013c4d_67c9d46d",
       "range": {
         "startLine": 94,
         "startChar": 35,
