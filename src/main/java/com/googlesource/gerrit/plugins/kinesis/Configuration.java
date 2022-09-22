@@ -45,7 +45,7 @@ class Configuration {
   static final String AWS_LIB_LOG_LEVEL_FIELD = "awsLibLogLevel";
   static final String SEND_ASYNC_FIELD = "sendAsync";
   static final String SEND_STREAM_EVENTS_FIELD = "sendStreamEvents";
-
+  static final Boolean DEFAULT_SEND_STREAM_EVENTS = false;
   static final String DEFAULT_NUMBER_OF_SUBSCRIBERS = "6";
   static final String DEFAULT_STREAM_EVENTS_TOPIC = "gerrit";
   static final String DEFAULT_INITIAL_POSITION = "latest";
@@ -54,9 +54,9 @@ class Configuration {
   static final Long DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS = 6000L;
   static final Long DEFAULT_PUBLISH_TIMEOUT_MS = 6000L;
   static final Long DEFAULT_SHUTDOWN_TIMEOUT_MS = 20000L;
+  static final Long DEFAULT_CHECKPOINT_INTERVAL_MS = 5 * 60000L; // 5 min
   static final Level DEFAULT_AWS_LIB_LOG_LEVEL = Level.WARN;
   static final Boolean DEFAULT_SEND_ASYNC = true;
-  static final Boolean DEFAULT_SEND_STREAM_EVENTS = false;
 
   private final String applicationName;
   private final String streamEventsTopic;
@@ -69,6 +69,7 @@ class Configuration {
   private final Long publishTimeoutMs;
   private final Long publishSingleRequestTimeoutMs;
   private final Long shutdownTimeoutMs;
+  private final Long checkpointIntervalMs;
   private final Level awsLibLogLevel;
   private final Boolean sendAsync;
   private final Boolean sendStreamEvents;
@@ -123,6 +124,11 @@ class Configuration {
         Optional.ofNullable(getStringParam(pluginConfig, SHUTDOWN_MS_FIELD, null))
             .map(Long::parseLong)
             .orElse(DEFAULT_SHUTDOWN_TIMEOUT_MS);
+
+    this.checkpointIntervalMs =
+        Optional.ofNullable(getStringParam(pluginConfig, "checkpointIntervalMs", null))
+            .map(Long::parseLong)
+            .orElse(DEFAULT_CHECKPOINT_INTERVAL_MS);
 
     this.awsLibLogLevel =
         Optional.ofNullable(getStringParam(pluginConfig, AWS_LIB_LOG_LEVEL_FIELD, null))
@@ -196,6 +202,10 @@ class Configuration {
 
   public Long getShutdownTimeoutMs() {
     return shutdownTimeoutMs;
+  }
+
+  public Long getCheckpointIntervalMs() {
+    return checkpointIntervalMs;
   }
 
   public Level getAwsLibLogLevel() {
