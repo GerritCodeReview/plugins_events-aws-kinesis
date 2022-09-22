@@ -53,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb6a014a_0e747811",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisRecordProcessor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2022-09-22T18:55:37Z",
+      "side": 1,
+      "message": "makes sense, I agree.",
+      "parentUuid": "8099f9e3_9eb613ca",
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5398c19_49869ed4",
