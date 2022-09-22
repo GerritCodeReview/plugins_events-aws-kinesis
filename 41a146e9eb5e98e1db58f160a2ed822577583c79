@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "656452ce_8ae8002a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1025452
+      },
+      "writtenOn": "2022-09-22T05:40:11Z",
+      "side": 1,
+      "message": "LGTM but I will let @syntonyze@gmail.com to accept it",
+      "revId": "41a146e9eb5e98e1db58f160a2ed822577583c79",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
