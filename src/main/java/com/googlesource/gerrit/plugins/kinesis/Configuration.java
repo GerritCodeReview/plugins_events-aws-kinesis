@@ -56,6 +56,7 @@ class Configuration {
   private final Long checkpointIntervalMs;
   private final Level awsLibLogLevel;
   private final Boolean sendAsync;
+  private final Optional<String> awsConfigurationProfileName;
 
   @Inject
   public Configuration(PluginConfigFactory configFactory, @PluginName String pluginName) {
@@ -115,13 +116,17 @@ class Configuration {
             .map(Boolean::new)
             .orElse(DEFAULT_SEND_ASYNC);
 
+    this.awsConfigurationProfileName =
+        Optional.ofNullable(getStringParam(pluginConfig, "profileName", null));
+
     logger.atInfo().log(
-        "Kinesis client. Application:'%s'|PollingInterval: %s|maxRecords: %s%s%s",
+        "Kinesis client. Application:'%s'|PollingInterval: %s|maxRecords: %s%s%s%s",
         applicationName,
         pollingIntervalMs,
         maxRecords,
         region.map(r -> String.format("|region: %s", r.id())).orElse(""),
-        endpoint.map(e -> String.format("|endpoint: %s", e.toASCIIString())).orElse(""));
+        endpoint.map(e -> String.format("|endpoint: %s", e.toASCIIString())).orElse(""),
+        awsConfigurationProfileName.map(p -> String.format("|profile: %s", p)).orElse(""));
   }
 
   public String getStreamEventsTopic() {
@@ -162,6 +167,10 @@ class Configuration {
 
   public InitialPositionInStream getInitialPosition() {
     return initialPosition;
+  }
+
+  public Optional<String> getAwsConfigurationProfileName() {
+    return awsConfigurationProfileName;
   }
 
   private static String getStringParam(

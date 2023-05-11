@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 
 import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import java.util.Optional;
 import org.apache.log4j.Level;
 import org.eclipse.jgit.lib.Config;
 import org.junit.Before;
@@ -90,5 +91,28 @@ public class ConfigurationTest {
     Configuration configuration = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME);
 
     assertThat(configuration.isSendAsync()).isEqualTo(false);
+  }
+
+  @Test
+  public void shouldReturnAWSProfileNameWhenConfigured() {
+    String awsProfileName = "aws_profile_name";
+    pluginConfig.setString("profileName", awsProfileName);
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
+
+    Configuration configuration = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME);
+    Optional<String> profileName = configuration.getAwsConfigurationProfileName();
+    assertThat(profileName.isPresent()).isTrue();
+    assertThat(profileName.get()).isEqualTo(awsProfileName);
+  }
+
+  @Test
+  public void shouldSkipAWSProfileNameWhenNotConfigured() {
+    when(pluginConfigFactoryMock.getFromGerritConfig(PLUGIN_NAME))
+        .thenReturn(pluginConfig.asPluginConfig());
+
+    Configuration configuration = new Configuration(pluginConfigFactoryMock, PLUGIN_NAME);
+    Optional<String> profileName = configuration.getAwsConfigurationProfileName();
+    assertThat(profileName.isPresent()).isFalse();
   }
 }

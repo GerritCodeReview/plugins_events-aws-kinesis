@@ -109,6 +109,12 @@ Default: 300000 (5 minutes)
     The overall result of the operation, once available, will be logged.
     Default: true
 
+`plugin.events-aws-kinesis.profileName`
+:   Optional. The name of the aws configuration and credentials profile used to
+    connect to the Kinesis. See [Configuration and credential file settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+    Default: When not specified credentials are provided via the Default Credentials
+    Provider Chain, as explained [here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html)
+
 Overrides
 =========================
 
