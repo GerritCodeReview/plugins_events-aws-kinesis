@@ -14,11 +14,10 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClientBuilder;
 import software.amazon.kinesis.common.KinesisClientUtil;
@@ -40,9 +39,7 @@ class KinesisAsyncClientProvider implements Provider<KinesisAsyncClient> {
     configuration
         .getAwsConfigurationProfileName()
         .ifPresent(
-            profile ->
-                builder.credentialsProvider(
-                    (AwsCredentialsProvider) new ProfileCredentialsProvider(profile)));
+            profile -> builder.credentialsProvider(ProfileCredentialsProvider.create(profile)));
     return KinesisClientUtil.createKinesisAsyncClient(builder);
   }
 }
