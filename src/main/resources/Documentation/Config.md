@@ -76,6 +76,16 @@ The events-aws-kinesis plugin is configured by adding a plugin stanza in the
   If it goes over, the request will be timed-out and not attempted again.
   Default: 6000
 
+`plugin.events-aws-kinesis.recordMaxBufferedTimeMs`
+: Optional. Maximum amount of time (milliseconds) a record may spend being buffered
+  before it gets sent. Records may be sent sooner than this depending on the
+  other buffering limits.
+
+  This setting provides coarse ordering among records - any two records will
+  be reordered by no more than twice this amount (assuming no failures and
+  retries and equal network latency).
+  Default: 100
+
 `plugin.events-aws-kinesis.shutdownTimeoutMs`
 : Optional. The maximum total time (milliseconds) waiting when shutting down
   kinesis consumers.
