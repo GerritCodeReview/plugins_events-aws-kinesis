@@ -41,7 +41,8 @@ public class KinesisProducerProvider implements Provider<KinesisProducer> {
         new KinesisProducerConfiguration()
             .setAggregationEnabled(false)
             .setMaxConnections(1)
-            .setRequestTimeout(configuration.getPublishSingleRequestTimeoutMs());
+            .setRequestTimeout(configuration.getPublishSingleRequestTimeoutMs())
+            .setRecordMaxBufferedTime(configuration.getPublishRecordMaxBufferedTimeMs());
 
     conf.setRegion(configuration.getRegion().orElseGet(regionProvider::getRegion).toString());
 
