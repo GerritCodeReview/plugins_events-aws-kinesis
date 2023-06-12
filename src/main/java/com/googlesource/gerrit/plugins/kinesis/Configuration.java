@@ -36,6 +36,7 @@ class Configuration {
   private static final Long DEFAULT_POLLING_INTERVAL_MS = 1000L;
   private static final Integer DEFAULT_MAX_RECORDS = 100;
   private static final Long DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS = 6000L;
+  private static final Long DEFAULT_PUBLISH_RECORD_MAX_BUFFERED_TIME_MS = 100L;
   private static final Long DEFAULT_PUBLISH_TIMEOUT_MS = 6000L;
   private static final Long DEFAULT_SHUTDOWN_TIMEOUT_MS = 20000L;
   private static final Long DEFAULT_CHECKPOINT_INTERVAL_MS = 5 * 60000L; // 5 min
@@ -57,6 +58,7 @@ class Configuration {
   private final Level awsLibLogLevel;
   private final Boolean sendAsync;
   private final Optional<String> awsConfigurationProfileName;
+  private final Long publishRecordMaxBufferedTimeMs;
 
   @Inject
   public Configuration(PluginConfigFactory configFactory, @PluginName String pluginName) {
@@ -90,6 +92,11 @@ class Configuration {
         Optional.ofNullable(getStringParam(pluginConfig, "publishSingleRequestTimeoutMs", null))
             .map(Long::parseLong)
             .orElse(DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS);
+
+    this.publishRecordMaxBufferedTimeMs =
+        Optional.ofNullable(getStringParam(pluginConfig, "recordMaxBufferedTimeMs", null))
+            .map(Long::parseLong)
+            .orElse(DEFAULT_PUBLISH_RECORD_MAX_BUFFERED_TIME_MS);
 
     this.publishTimeoutMs =
         Optional.ofNullable(getStringParam(pluginConfig, "publishTimeoutMs", null))
@@ -155,6 +162,10 @@ class Configuration {
 
   public Long getPublishSingleRequestTimeoutMs() {
     return publishSingleRequestTimeoutMs;
+  }
+
+  public Long getPublishRecordMaxBufferedTimeMs() {
+    return publishRecordMaxBufferedTimeMs;
   }
 
   public Long getPollingIntervalMs() {
