@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "746a172e_77151561",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2023-06-12T13:29:05Z",
+      "side": 1,
+      "message": "specifying",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ee3b31a_e4f7cc1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2023-06-12T13:29:05Z",
+      "side": 1,
+      "message": "nit: might improve\n\nI guess this depends on how often messages are being sent?",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 14
+      },
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb4ac1f7_e89f9fce",
+        "filename": "src/main/resources/Documentation/Config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2023-06-12T13:29:05Z",
+      "side": 1,
+      "message": "nit: could you link the relevant AWS configuration?",
+      "range": {
+        "startLine": 79,
+        "startChar": 27,
+        "endLine": 79,
+        "endChar": 50
+      },
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "690ae8a0_639e4e22",
+        "filename": "src/main/resources/Documentation/Config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2023-06-12T13:29:05Z",
+      "side": 1,
+      "message": "Is this also the default when the value is not set?",
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
