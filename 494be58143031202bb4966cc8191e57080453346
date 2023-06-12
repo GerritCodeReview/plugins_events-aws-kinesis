@@ -16,6 +16,24 @@
       "message": "Can you explain what the issue was exactly with the casting?",
       "revId": "494be58143031202bb4966cc8191e57080453346",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5531fca5_9958a715",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-12T12:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0809d569_d3ed0a27",
+      "revId": "494be58143031202bb4966cc8191e57080453346",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
