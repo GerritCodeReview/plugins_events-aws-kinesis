@@ -66,6 +66,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9ba9030_50d494c5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-12T19:19:54Z",
+      "side": 1,
+      "message": "To keep backward compatibility I\u0027ve put amazon default:\nhttps://github.com/awslabs/amazon-kinesis-producer/blob/master/java/amazon-kinesis-producer-sample/default_config.properties#L239",
+      "parentUuid": "ad6dc4b2_ebf18492",
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa511688_67d1bd8a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
         "patchSetId": 4
