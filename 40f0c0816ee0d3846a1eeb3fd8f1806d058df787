@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2105a409_7f389353",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-13T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "746a172e_77151561",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ee3b31a_e4f7cc1b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-06-12T13:29:05Z",
       "side": 1,
       "message": "nit: might improve\n\nI guess this depends on how often messages are being sent?",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 14
+      },
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93783bb4_971378a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-13T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ee3b31a_e4f7cc1b",
       "range": {
         "startLine": 11,
         "startChar": 6,
@@ -101,6 +149,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36ccacc0_1500e6f7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-13T13:53:55Z",
+      "side": 1,
+      "message": "In this plugin we have a special logic to override param with system properties. So I\u0027ve reuse that logic. We can have a follow up change to create methods other that getStringParam\n\nhttps://gerrit-review.googlesource.com/c/plugins/events-aws-kinesis/+/376574/4/src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java#187",
+      "parentUuid": "fa511688_67d1bd8a",
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb4ac1f7_e89f9fce",
         "filename": "src/main/resources/Documentation/Config.md",
         "patchSetId": 4
@@ -112,6 +178,30 @@
       "writtenOn": "2023-06-12T13:29:05Z",
       "side": 1,
       "message": "nit: could you link the relevant AWS configuration?",
+      "range": {
+        "startLine": 79,
+        "startChar": 27,
+        "endLine": 79,
+        "endChar": 50
+      },
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3eecae3_de3f82ab",
+        "filename": "src/main/resources/Documentation/Config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-13T13:53:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb4ac1f7_e89f9fce",
       "range": {
         "startLine": 79,
         "startChar": 27,
@@ -135,6 +225,24 @@
       "writtenOn": "2023-06-12T13:29:05Z",
       "side": 1,
       "message": "Is this also the default when the value is not set?",
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1865a2e1_089a1cfc",
+        "filename": "src/main/resources/Documentation/Config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-13T13:53:55Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "690ae8a0_639e4e22",
       "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
