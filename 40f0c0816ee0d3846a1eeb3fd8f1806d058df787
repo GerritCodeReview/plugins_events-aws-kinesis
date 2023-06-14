@@ -166,6 +166,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6ff0c5_f10af57b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-14T07:58:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5bce441d_b67e2261",
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa511688_67d1bd8a",
