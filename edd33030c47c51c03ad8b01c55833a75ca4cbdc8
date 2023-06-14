@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15d94bbe_3c281619",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-14T07:58:22Z",
+      "side": 1,
+      "message": "That\u0027s the suggestion we got from AWS Support team to avoid:\n```\n[2023-06-12T00:05:39.008Z] [kpl-daemon-0006] WARN  com.amazonaws.services.kinesis.producer.LogInputStreamReader : [2023-06-12 00:05:39.008530] [0x0000023c][0x00007f583be73640] [warning] [processing_statistics_logger.cc:126] PutRecords processing time is taking longer than 500 ms to complete.  You may need to adjust your configuration to reduce the processing time.\n```",
+      "parentUuid": "9937e25e_43d462f0",
+      "revId": "edd33030c47c51c03ad8b01c55833a75ca4cbdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee7ed7dc_2d702084",
         "filename": "src/main/resources/Documentation/Config.md",
         "patchSetId": 5
@@ -54,6 +72,24 @@
       "writtenOn": "2023-06-13T20:33:05Z",
       "side": 1,
       "message": "This should link to a commit (i.e. a snapshot) rather than master.",
+      "revId": "edd33030c47c51c03ad8b01c55833a75ca4cbdc8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91ee510a_fefd689a",
+        "filename": "src/main/resources/Documentation/Config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-14T07:58:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee7ed7dc_2d702084",
       "revId": "edd33030c47c51c03ad8b01c55833a75ca4cbdc8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }

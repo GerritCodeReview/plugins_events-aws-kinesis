@@ -150,6 +150,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5bce441d_b67e2261",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-06-14T07:58:22Z",
+      "side": 1,
+      "message": "That\u0027s a valid point but I think it\u0027s out of scope of this change. We have multiple params which we set to the default instead of reading them from kafka producer configuration. We should address that as a follow up change",
+      "parentUuid": "d7c31b4b_1210d7b9",
+      "revId": "40f0c0816ee0d3846a1eeb3fd8f1806d058df787",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa511688_67d1bd8a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
         "patchSetId": 4
