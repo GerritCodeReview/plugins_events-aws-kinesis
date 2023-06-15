@@ -88,6 +88,15 @@ The events-aws-kinesis plugin is configured by adding a plugin stanza in the
   for more details on this.
   Default: 100
 
+`plugin.events-aws-kinesis.consumerFailoverTimeInMs`
+: Optional. Fail over time in milliseconds. A worker which does not renew
+  it's lease within this time interval will be regarded as having problems
+  and it's shards will be assigned to other workers.
+
+  See [AWS docs](https://github.com/awslabs/amazon-kinesis-client/blob/v2.3.4/amazon-kinesis-client/src/main/java/software/amazon/kinesis/leases/LeaseManagementConfig.java#L107)
+  for more details on this.
+  Default: 10000
+
 `plugin.events-aws-kinesis.shutdownTimeoutMs`
 : Optional. The maximum total time (milliseconds) waiting when shutting down
   kinesis consumers.
