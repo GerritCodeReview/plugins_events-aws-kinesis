@@ -67,6 +67,9 @@ class SchedulerProvider implements Provider<Scheduler> {
             cloudWatchAsyncClient,
             String.format("klc-worker-%s-%s", configuration.getApplicationName(), streamName),
             kinesisRecordProcessorFactory.create(messageProcessor));
+    configsBuilder
+        .leaseManagementConfig()
+        .failoverTimeMillis(configuration.getConsumerFailoverTimeInMs());
   }
 
   private RetrievalConfig getRetrievalConfig() {
