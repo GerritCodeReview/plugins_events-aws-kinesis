@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dae665d_8aa33c38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2023-06-27T09:27:25Z",
+      "side": 1,
+      "message": "Fixed the Bug footer, for linkification and GitWatcher to work, the footer must be \"Bug: Issue 287304308\", \"Bug: Issue-287304308\" is not working.",
+      "revId": "276d8a16823b757f172a2eb725ac0f9c9aa26594",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
