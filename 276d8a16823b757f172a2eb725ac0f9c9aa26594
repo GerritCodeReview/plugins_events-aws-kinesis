@@ -16,6 +16,46 @@
       "message": "Fixed the Bug footer, for linkification and GitWatcher to work, the footer must be \"Bug: Issue 287304308\", \"Bug: Issue-287304308\" is not working.",
       "revId": "276d8a16823b757f172a2eb725ac0f9c9aa26594",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9031e45_921f6bda",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-06-28T23:48:24Z",
+      "side": 1,
+      "message": "Just one minor nit.",
+      "revId": "276d8a16823b757f172a2eb725ac0f9c9aa26594",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "234bfe8c_8f27ba4d",
+        "filename": "src/main/resources/Documentation/Config.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2023-06-28T23:48:24Z",
+      "side": 1,
+      "message": "```suggestion\n: Optional. Failover time in milliseconds. A worker which does not renew\n```",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 92,
+        "endChar": 21
+      },
+      "revId": "276d8a16823b757f172a2eb725ac0f9c9aa26594",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
