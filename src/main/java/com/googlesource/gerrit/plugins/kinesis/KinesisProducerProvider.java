@@ -48,7 +48,11 @@ public class KinesisProducerProvider implements Provider<KinesisProducer> {
 
     configuration
         .getAwsConfigurationProfileName()
-        .ifPresent(profile -> conf.setCredentialsProvider(new ProfileCredentialsProvider(profile)));
+        .ifPresent(
+            profile -> {
+              conf.setCredentialsProvider(new ProfileCredentialsProvider(profile));
+              conf.setMetricsCredentialsProvider(new ProfileCredentialsProvider(profile));
+            });
     configuration
         .getEndpoint()
         .ifPresent(
