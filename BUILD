@@ -19,6 +19,7 @@ gerrit_plugin(
     ],
     resources = glob(["src/main/resources/**/*"]),
     deps = [
+        ":events-broker-neverlink",
         "@amazon-auth//jar",
         "@amazon-aws-core//jar",
         "@amazon-cloudwatch//jar",
@@ -43,7 +44,6 @@ gerrit_plugin(
         "@awssdk-query-protocol//jar",
         "@commons-codec//jar",
         "@commons-lang//jar",
-        "@events-broker//jar:neverlink",
         "@io-netty-all//jar",
         "@jackson-annotations//jar",
         "@jackson-core//jar",
@@ -63,11 +63,11 @@ junit_tests(
     tags = ["events-aws-kinesis"],
     deps = [
         ":events-aws-kinesis__plugin_test_deps",
+        ":events-broker-neverlink",
         "@amazon-http-client-spi//jar",
         "@amazon-kinesis-client//jar",
         "@amazon-kinesis//jar",
         "@awssdk-kinesis-producer//jar",
-        "@events-broker//jar",
     ],
 )
 
@@ -95,4 +95,10 @@ java_library(
         "@amazon-dynamodb//jar",
         "@testcontainer-localstack//jar",
     ],
+)
+
+java_library(
+    name = "events-broker-neverlink",
+    neverlink = 1,
+    exports = ["//plugins/events-broker"],
 )
