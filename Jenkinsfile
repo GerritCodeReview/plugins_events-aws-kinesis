@@ -1,2 +1,3 @@
 pluginPipeline(formatCheckId: 'gerritforge:plugins-events-aws-kinesis-code-style',
-                buildCheckId: 'gerritforge:plugins-events-aws-kinesis-build-test')
+                buildCheckId: 'gerritforge:plugins-events-aws-kinesis-build-test',
+                extraModules: ['events-broker'])
