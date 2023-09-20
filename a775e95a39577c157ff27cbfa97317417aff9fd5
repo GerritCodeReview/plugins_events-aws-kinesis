@@ -16,6 +16,24 @@
       "message": "We should remove this entry from `external_plugin_deps.bzl`.",
       "revId": "a775e95a39577c157ff27cbfa97317417aff9fd5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3073d96_a4d45d87",
+        "filename": "BUILD",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-09-20T14:35:13Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "2f5e399c_ecc95608",
+      "revId": "a775e95a39577c157ff27cbfa97317417aff9fd5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
