@@ -3,7 +3,7 @@
 The events-aws-kinesis plugin can be build as a regular 'in-tree' plugin. That means
 that is required to clone a Gerrit source tree first and then to have the plugin
 source directory into the `/plugins` path. The plugin depends on [events-broker](https://gerrit.googlesource.com/modules/events-broker)
-which is linked directly from source with the same 'in-tree' plugin structure.
+which is linked directly from source into the `modules` folder.
 
 Additionally, the `plugins/external_plugin_deps.bzl` file needs to be updated to
 match the events-aws-kinesis plugin one.
@@ -12,7 +12,7 @@ match the events-aws-kinesis plugin one.
 git clone --recursive https://gerrit.googlesource.com/gerrit
 cd gerrit
 git clone "https://gerrit.googlesource.com/plugins/events-aws-kinesis" plugins/events-aws-kinesis
-git clone "https://gerrit.googlesource.com/modules/events-broker" plugins/events-broker
+git clone "https://gerrit.googlesource.com/modules/events-broker" modules/events-broker
 ln -sf plugins/events-aws-kinesis/external_plugin_deps.bzl plugins/.
 bazelisk build plugins/events-aws-kinesis
 ```

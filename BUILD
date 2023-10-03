@@ -61,7 +61,7 @@ junit_tests(
     deps = [
         ":events-aws-kinesis__plugin_test_deps",
         "//lib/testcontainers",
-        "//plugins/events-broker",
+        "//modules/events-broker",
         "@amazon-http-client-spi//jar",
         "@amazon-kinesis-client//jar",
         "@amazon-kinesis//jar",
@@ -95,5 +95,5 @@ java_library(
 java_library(
     name = "events-broker-neverlink",
     neverlink = 1,
-    exports = ["//plugins/events-broker"],
+    exports = ["//modules/events-broker"],
 )
