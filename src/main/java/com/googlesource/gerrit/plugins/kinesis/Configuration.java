@@ -73,7 +73,13 @@ class Configuration {
   private final Long checkpointIntervalMs;
   private final Level awsLibLogLevel;
   private final Boolean sendAsync;
+<<<<<<< HEAD
   private final Boolean sendStreamEvents;
+=======
+  private final Optional<String> awsConfigurationProfileName;
+  private final Long publishRecordMaxBufferedTimeMs;
+  private final Long consumerFailoverTimeInMs;
+>>>>>>> stable-3.4
 
   @Inject
   public Configuration(PluginConfigFactory configFactory, @PluginName String pluginName) {
@@ -116,6 +122,16 @@ class Configuration {
             .map(Long::parseLong)
             .orElse(DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS);
 
+    this.publishRecordMaxBufferedTimeMs =
+        Optional.ofNullable(getStringParam(pluginConfig, "recordMaxBufferedTimeMs", null))
+            .map(Long::parseLong)
+            .orElse(DEFAULT_PUBLISH_RECORD_MAX_BUFFERED_TIME_MS);
+
+    this.consumerFailoverTimeInMs =
+        Optional.ofNullable(getStringParam(pluginConfig, "consumerFailoverTimeInMs", null))
+            .map(Long::parseLong)
+            .orElse(DEFAULT_CONSUMER_FAILOVER_TIME_MS);
+
     this.publishTimeoutMs =
         Optional.ofNullable(getStringParam(pluginConfig, PUBLISH_TIMEOUT_MS_FIELD, null))
             .map(Long::parseLong)
@@ -141,13 +157,17 @@ class Configuration {
             .map(Boolean::new)
             .orElse(DEFAULT_SEND_ASYNC);
 
+    this.awsConfigurationProfileName =
+        Optional.ofNullable(getStringParam(pluginConfig, "profileName", null));
+
     logger.atInfo().log(
-        "Kinesis client. Application:'%s'|PollingInterval: %s|maxRecords: %s%s%s",
+        "Kinesis client. Application:'%s'|PollingInterval: %s|maxRecords: %s%s%s%s",
         applicationName,
         pollingIntervalMs,
         maxRecords,
         region.map(r -> String.format("|region: %s", r.id())).orElse(""),
-        endpoint.map(e -> String.format("|endpoint: %s", e.toASCIIString())).orElse(""));
+        endpoint.map(e -> String.format("|endpoint: %s", e.toASCIIString())).orElse(""),
+        awsConfigurationProfileName.map(p -> String.format("|profile: %s", p)).orElse(""));
   }
 
   public String getStreamEventsTopic() {
@@ -178,6 +198,14 @@ class Configuration {
     return publishSingleRequestTimeoutMs;
   }
 
+  public Long getPublishRecordMaxBufferedTimeMs() {
+    return publishRecordMaxBufferedTimeMs;
+  }
+
+  public long getConsumerFailoverTimeInMs() {
+    return consumerFailoverTimeInMs;
+  }
+
   public Long getPollingIntervalMs() {
     return pollingIntervalMs;
   }
@@ -188,6 +216,10 @@ class Configuration {
 
   public InitialPositionInStream getInitialPosition() {
     return initialPosition;
+  }
+
+  public Optional<String> getAwsConfigurationProfileName() {
+    return awsConfigurationProfileName;
   }
 
   private static String getStringParam(
