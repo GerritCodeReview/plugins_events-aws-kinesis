@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c34d6e8f_7c6f5f3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-10-06T14:49:04Z",
+      "side": 1,
+      "message": "compilation issues.",
+      "revId": "7cff40834993b9310377c43a0de2ae92563754f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0ac0e34_a6c96207",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-10-06T14:49:04Z",
+      "side": 1,
+      "message": "This is not related with the change. You could create a first change where you run `buildifier BUILD`",
+      "revId": "7cff40834993b9310377c43a0de2ae92563754f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47cb693a_d7c6069b",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-10-06T14:49:04Z",
+      "side": 1,
+      "message": "you need to remove this.",
+      "revId": "7cff40834993b9310377c43a0de2ae92563754f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db43a5df_8c462d4d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-10-06T14:49:04Z",
+      "side": 1,
+      "message": "you need to remove this.",
+      "revId": "7cff40834993b9310377c43a0de2ae92563754f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
