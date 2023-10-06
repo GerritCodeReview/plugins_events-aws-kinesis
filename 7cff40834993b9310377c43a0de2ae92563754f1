@@ -35,6 +35,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69db35a0_27b81c7c",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-10-06T14:57:17Z",
+      "side": 1,
+      "message": "What do you mean, it\u0027s just different formatting because the ordering is different in 3.4 vs 3.5. Looks like the merge up hasn\u0027t been done for a while.",
+      "parentUuid": "a0ac0e34_a6c96207",
+      "revId": "7cff40834993b9310377c43a0de2ae92563754f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47cb693a_d7c6069b",
@@ -52,6 +70,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e55801a_ab6be6a5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-10-06T14:57:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47cb693a_d7c6069b",
+      "revId": "7cff40834993b9310377c43a0de2ae92563754f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db43a5df_8c462d4d",
@@ -65,6 +101,24 @@
       "writtenOn": "2023-10-06T14:49:04Z",
       "side": 1,
       "message": "you need to remove this.",
+      "revId": "7cff40834993b9310377c43a0de2ae92563754f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a2bf3c5_7f9512fc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1157810
+      },
+      "writtenOn": "2023-10-06T14:57:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db43a5df_8c462d4d",
       "revId": "7cff40834993b9310377c43a0de2ae92563754f1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
