@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.kinesis;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClientBuilder;
 
@@ -34,6 +35,11 @@ class DynamoDbAsyncClientProvider implements Provider<DynamoDbAsyncClient> {
     DynamoDbAsyncClientBuilder builder = DynamoDbAsyncClient.builder();
     configuration.getRegion().ifPresent(builder::region);
     configuration.getEndpoint().ifPresent(builder::endpointOverride);
+
+    configuration
+        .getAwsConfigurationProfileName()
+        .ifPresent(
+            profile -> builder.credentialsProvider(ProfileCredentialsProvider.create(profile)));
 
     return builder.build();
   }
