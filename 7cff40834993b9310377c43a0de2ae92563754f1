@@ -53,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c2d5e8c_ec547e49",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-10-06T15:04:19Z",
+      "side": 1,
+      "message": "stable-3.5 BUILD bazel file is bad formatted. It is not your change, it was before. That is the reason that I suggested to create a first change formatting the code. Up to you.",
+      "parentUuid": "69db35a0_27b81c7c",
+      "revId": "7cff40834993b9310377c43a0de2ae92563754f1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47cb693a_d7c6069b",
