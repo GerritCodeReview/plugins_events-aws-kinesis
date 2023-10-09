@@ -16,6 +16,24 @@
       "message": "I think its the same as https://gerrit-review.googlesource.com/c/plugins/events-aws-kinesis/+/388532, which i will abandon in favour of yours.",
       "revId": "ce9b57951442255f8a63d3e98febd0774647e867",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a08f4d3_9f4c7e02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1149185
+      },
+      "writtenOn": "2023-10-09T10:52:44Z",
+      "side": 1,
+      "message": "I completely forgot that you started with the merge up process.",
+      "parentUuid": "1d49e8a4_1a7ec1d9",
+      "revId": "ce9b57951442255f8a63d3e98febd0774647e867",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
