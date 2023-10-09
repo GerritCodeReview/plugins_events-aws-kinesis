@@ -52,6 +52,8 @@ class Configuration {
   static final Long DEFAULT_POLLING_INTERVAL_MS = 1000L;
   static final Integer DEFAULT_MAX_RECORDS = 100;
   static final Long DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS = 6000L;
+  private static final Long DEFAULT_PUBLISH_RECORD_MAX_BUFFERED_TIME_MS = 100L;
+  private static final Long DEFAULT_CONSUMER_FAILOVER_TIME_MS = 10000L;
   static final Long DEFAULT_PUBLISH_TIMEOUT_MS = 6000L;
   static final Long DEFAULT_SHUTDOWN_TIMEOUT_MS = 20000L;
   static final Level DEFAULT_AWS_LIB_LOG_LEVEL = Level.WARN;
@@ -74,6 +76,9 @@ class Configuration {
   private final Level awsLibLogLevel;
   private final Boolean sendAsync;
   private final Boolean sendStreamEvents;
+  private final Optional<String> awsConfigurationProfileName;
+  private final Long publishRecordMaxBufferedTimeMs;
+  private final Long consumerFailoverTimeInMs;
 
   @Inject
   public Configuration(PluginConfigFactory configFactory, @PluginName String pluginName) {
@@ -116,6 +121,16 @@ class Configuration {
             .map(Long::parseLong)
             .orElse(DEFAULT_PUBLISH_SINGLE_REQUEST_TIMEOUT_MS);
 
+    this.publishRecordMaxBufferedTimeMs =
+        Optional.ofNullable(getStringParam(pluginConfig, "recordMaxBufferedTimeMs", null))
+            .map(Long::parseLong)
+            .orElse(DEFAULT_PUBLISH_RECORD_MAX_BUFFERED_TIME_MS);
+
+    this.consumerFailoverTimeInMs =
+        Optional.ofNullable(getStringParam(pluginConfig, "consumerFailoverTimeInMs", null))
+            .map(Long::parseLong)
+            .orElse(DEFAULT_CONSUMER_FAILOVER_TIME_MS);
+
     this.publishTimeoutMs =
         Optional.ofNullable(getStringParam(pluginConfig, PUBLISH_TIMEOUT_MS_FIELD, null))
             .map(Long::parseLong)
@@ -141,13 +156,17 @@ class Configuration {
             .map(Boolean::new)
             .orElse(DEFAULT_SEND_ASYNC);
 
+    this.awsConfigurationProfileName =
+        Optional.ofNullable(getStringParam(pluginConfig, "profileName", null));
+
     logger.atInfo().log(
-        "Kinesis client. Application:'%s'|PollingInterval: %s|maxRecords: %s%s%s",
+        "Kinesis client. Application:'%s'|PollingInterval: %s|maxRecords: %s%s%s%s",
         applicationName,
         pollingIntervalMs,
         maxRecords,
         region.map(r -> String.format("|region: %s", r.id())).orElse(""),
-        endpoint.map(e -> String.format("|endpoint: %s", e.toASCIIString())).orElse(""));
+        endpoint.map(e -> String.format("|endpoint: %s", e.toASCIIString())).orElse(""),
+        awsConfigurationProfileName.map(p -> String.format("|profile: %s", p)).orElse(""));
   }
 
   public String getStreamEventsTopic() {
@@ -178,6 +197,14 @@ class Configuration {
     return publishSingleRequestTimeoutMs;
   }
 
+  public Long getPublishRecordMaxBufferedTimeMs() {
+    return publishRecordMaxBufferedTimeMs;
+  }
+
+  public long getConsumerFailoverTimeInMs() {
+    return consumerFailoverTimeInMs;
+  }
+
   public Long getPollingIntervalMs() {
     return pollingIntervalMs;
   }
@@ -188,6 +215,10 @@ class Configuration {
 
   public InitialPositionInStream getInitialPosition() {
     return initialPosition;
+  }
+
+  public Optional<String> getAwsConfigurationProfileName() {
+    return awsConfigurationProfileName;
   }
 
   private static String getStringParam(
