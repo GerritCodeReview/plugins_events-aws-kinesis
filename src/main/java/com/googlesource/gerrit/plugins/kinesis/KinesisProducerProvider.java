@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.kinesis.producer.KinesisProducer;
 import com.amazonaws.services.kinesis.producer.KinesisProducerConfiguration;
 import com.google.common.flogger.FluentLogger;
@@ -40,10 +41,14 @@ public class KinesisProducerProvider implements Provider<KinesisProducer> {
         new KinesisProducerConfiguration()
             .setAggregationEnabled(false)
             .setMaxConnections(1)
-            .setRequestTimeout(configuration.getPublishSingleRequestTimeoutMs());
+            .setRequestTimeout(configuration.getPublishSingleRequestTimeoutMs())
+            .setRecordMaxBufferedTime(configuration.getPublishRecordMaxBufferedTimeMs());
 
     conf.setRegion(configuration.getRegion().orElseGet(regionProvider::getRegion).toString());
 
+    configuration
+        .getAwsConfigurationProfileName()
+        .ifPresent(profile -> conf.setCredentialsProvider(new ProfileCredentialsProvider(profile)));
     configuration
         .getEndpoint()
         .ifPresent(
@@ -54,12 +59,16 @@ public class KinesisProducerProvider implements Provider<KinesisProducer> {
                     .setCloudwatchPort(uri.getPort())
                     .setVerifyCertificate(false));
     logger.atInfo().log(
-        "Kinesis producer configured. Request Timeout (ms):'%s'%s%s",
+        "Kinesis producer configured. Request Timeout (ms):'%s'%s%s%s",
         configuration.getPublishSingleRequestTimeoutMs(),
         String.format("|region: '%s'", conf.getRegion()),
         configuration
             .getEndpoint()
             .map(e -> String.format("|endpoint: '%s'", e.toASCIIString()))
+            .orElse(""),
+        configuration
+            .getAwsConfigurationProfileName()
+            .map(p -> String.format("|profile: '%s'", p))
             .orElse(""));
 
     return new KinesisProducer(conf);

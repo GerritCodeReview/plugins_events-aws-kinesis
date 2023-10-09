@@ -120,12 +120,6 @@ def external_plugin_deps():
     )
 
     maven_jar(
-        name = "events-broker",
-        artifact = "com.gerritforge:events-broker:3.5.1",
-        sha1 = "78b8bc6ad7fd7caadcc1c6e3484332464de0ac38",
-    )
-
-    maven_jar(
         name = "io-netty-all",
         artifact = "io.netty:netty-all:4.1.51.Final",
         sha1 = "5e5f741acc4c211ac4572c31c7e5277ec465e4e4",
