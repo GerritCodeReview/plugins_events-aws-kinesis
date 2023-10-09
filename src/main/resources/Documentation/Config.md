@@ -76,6 +76,27 @@ The events-aws-kinesis plugin is configured by adding a plugin stanza in the
   If it goes over, the request will be timed-out and not attempted again.
   Default: 6000
 
+`plugin.events-aws-kinesis.recordMaxBufferedTimeMs`
+: Optional. Maximum amount of time (milliseconds) a record may spend being buffered
+  before it gets sent. Records may be sent sooner than this depending on the
+  other buffering limits.
+
+  This setting provides coarse ordering among records - any two records will
+  be reordered by no more than twice this amount (assuming no failures and
+  retries and equal network latency).
+  See [AWS docs](https://github.com/awslabs/amazon-kinesis-producer/blob/v0.14.6/java/amazon-kinesis-producer-sample/default_config.properties#L239)
+  for more details on this.
+  Default: 100
+
+`plugin.events-aws-kinesis.consumerFailoverTimeInMs`
+: Optional. Failover time in milliseconds. A worker which does not renew
+  it's lease within this time interval will be regarded as having problems
+  and it's shards will be assigned to other workers.
+
+  See [AWS docs](https://github.com/awslabs/amazon-kinesis-client/blob/v2.3.4/amazon-kinesis-client/src/main/java/software/amazon/kinesis/leases/LeaseManagementConfig.java#L107)
+  for more details on this.
+  Default: 10000
+
 `plugin.events-aws-kinesis.shutdownTimeoutMs`
 : Optional. The maximum total time (milliseconds) waiting when shutting down
   kinesis consumers.
@@ -112,6 +133,12 @@ Default: 300000 (5 minutes)
     publishing to terminate.
     The overall result of the operation, once available, will be logged.
     Default: true
+
+`plugin.events-aws-kinesis.profileName`
+:   Optional. The name of the aws configuration and credentials profile used to
+    connect to the Kinesis. See [Configuration and credential file settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+    Default: When not specified credentials are provided via the Default Credentials
+    Provider Chain, as explained [here](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html)
 
 Overrides
 =========================

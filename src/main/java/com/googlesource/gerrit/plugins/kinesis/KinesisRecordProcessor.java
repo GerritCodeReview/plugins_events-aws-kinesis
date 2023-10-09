@@ -122,7 +122,7 @@ class KinesisRecordProcessor implements ShardRecordProcessor {
   }
 
   private void checkpoint(RecordProcessorCheckpointer checkpointer) {
-    logger.atInfo().log("Checkpointing shard: " + kinesisShardId);
+    logger.atInfo().log("Checkpointing shard: %s", kinesisShardId);
     try {
       checkpointer.checkpoint();
     } catch (ShutdownException se) {
