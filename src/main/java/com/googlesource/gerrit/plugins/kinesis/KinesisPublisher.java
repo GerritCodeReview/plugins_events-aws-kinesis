@@ -41,6 +41,7 @@ class KinesisPublisher implements EventListener {
   private final KinesisProducer kinesisProducer;
   private final Configuration configuration;
   private final ExecutorService callBackExecutor;
+  private final Log4jMessageLogger msgLog;
 
   private final Gson gson;
 
@@ -49,11 +50,13 @@ class KinesisPublisher implements EventListener {
       @EventGson Gson gson,
       KinesisProducer kinesisProducer,
       Configuration configuration,
-      @ProducerCallbackExecutor ExecutorService callBackExecutor) {
+      @ProducerCallbackExecutor ExecutorService callBackExecutor,
+      Log4jMessageLogger msgLog) {
     this.gson = gson;
     this.kinesisProducer = kinesisProducer;
     this.configuration = configuration;
     this.callBackExecutor = callBackExecutor;
+    this.msgLog = msgLog;
   }
 
   @Override
@@ -106,6 +109,7 @@ class KinesisPublisher implements EventListener {
                   partitionKey,
                   result.getSequenceNumber(),
                   result.getAttempts().size());
+              msgLog.log(streamName, stringEvent);
             }
 
             @Override
