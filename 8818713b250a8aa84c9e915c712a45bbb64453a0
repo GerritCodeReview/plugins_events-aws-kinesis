@@ -16,6 +16,24 @@
       "message": "@christoforos.miliotis.dev@gmail.com I\u0027m not sure why we need this change(and similar one on the other plugins). My understanding from the previous discussion was that `message_log` will be populated only in two places:\n* events-broker: `StreamEventsBroker`[1]\n* multi-site: `BrokerApiWrapper`[2]\n\nWhat\u0027s the purpose of adding those logs in the plugins as well? How we going to enforce that other plugins to do the same?\n\n1. https://gerrit-review.googlesource.com/c/modules/events-broker/+/391598/7/src/main/java/com/gerritforge/gerrit/eventbroker/publisher/StreamEventPublisher.java\n2. https://gerrit-review.googlesource.com/c/plugins/multi-site/+/391614/5/src/main/java/com/googlesource/gerrit/plugins/multisite/broker/BrokerApiWrapper.java",
       "revId": "8818713b250a8aa84c9e915c712a45bbb64453a0",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcae9c00_7f450015",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083454
+      },
+      "writtenOn": "2023-12-01T11:37:54Z",
+      "side": 1,
+      "message": "Ok, so we don\u0027t want to break backward compatibility that\u0027s why changes pointed by me were done on master. All clear now",
+      "parentUuid": "b7bb073d_82d3a2d9",
+      "revId": "8818713b250a8aa84c9e915c712a45bbb64453a0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
