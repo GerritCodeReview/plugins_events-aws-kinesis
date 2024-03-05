@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.kinesis;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +27,8 @@ import software.amazon.kinesis.coordinator.Scheduler;
 
 class KinesisConsumer {
   interface Factory {
-    KinesisConsumer create(String topic, Consumer<Event> messageProcessor);
+    KinesisConsumer create(
+        String topic, @Assisted("groupId") String groupId, Consumer<Event> messageProcessor);
   }
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
@@ -34,6 +36,8 @@ class KinesisConsumer {
   private final CheckpointResetter checkpointResetter;
   private final Configuration configuration;
   private final ExecutorService executor;
+
+  private final String groupId;
   private Scheduler kinesisScheduler;
 
   private java.util.function.Consumer<Event> messageProcessor;
@@ -45,11 +49,13 @@ class KinesisConsumer {
       SchedulerProvider.Factory schedulerFactory,
       CheckpointResetter checkpointResetter,
       Configuration configuration,
-      @ConsumerExecutor ExecutorService executor) {
+      @ConsumerExecutor ExecutorService executor,
+      @Assisted("groupId") String groupId) {
     this.schedulerFactory = schedulerFactory;
     this.checkpointResetter = checkpointResetter;
     this.configuration = configuration;
     this.executor = executor;
+    this.groupId = groupId;
   }
 
   public void subscribe(String streamName, java.util.function.Consumer<Event> messageProcessor) {
@@ -57,12 +63,14 @@ class KinesisConsumer {
     this.messageProcessor = messageProcessor;
 
     logger.atInfo().log("Subscribe kinesis consumer to stream [%s]", streamName);
-    runReceiver(messageProcessor);
+    runReceiver(groupId, messageProcessor);
   }
 
-  private void runReceiver(java.util.function.Consumer<Event> messageProcessor) {
+  private void runReceiver(String groupId, java.util.function.Consumer<Event> messageProcessor) {
     this.kinesisScheduler =
-        schedulerFactory.create(streamName, resetOffset.getAndSet(false), messageProcessor).get();
+        schedulerFactory
+            .create(streamName, groupId, resetOffset.getAndSet(false), messageProcessor)
+            .get();
     executor.execute(kinesisScheduler);
   }
 
@@ -88,10 +96,14 @@ class KinesisConsumer {
     return streamName;
   }
 
+  public String getGroupId() {
+    return groupId;
+  }
+
   public void resetOffset() {
     // Move all checkpoints (if any) to TRIM_HORIZON, so that the consumer
     // scheduler will start consuming from beginning.
-    checkpointResetter.setAllShardsToBeginning(streamName);
+    checkpointResetter.setAllShardsToBeginning(streamName, groupId);
 
     // Even when no checkpoints have been persisted, instruct the consumer
     // scheduler to start from TRIM_HORIZON, irrespective of 'initialPosition'

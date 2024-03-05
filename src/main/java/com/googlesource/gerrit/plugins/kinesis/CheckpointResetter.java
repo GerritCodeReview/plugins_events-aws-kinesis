@@ -55,8 +55,8 @@ class CheckpointResetter {
     this.dynamoDbAsyncClient = dynamoDbAsyncClient;
   }
 
-  public void setAllShardsToBeginning(String streamName) {
-    String leaseTable = cosumerLeaseName(configuration.getApplicationName(), streamName);
+  public void setAllShardsToBeginning(String streamName, String groupId) {
+    String leaseTable = cosumerLeaseName(groupId, streamName);
 
     try {
       for (String shard : getAllShards(leaseTable)) {
