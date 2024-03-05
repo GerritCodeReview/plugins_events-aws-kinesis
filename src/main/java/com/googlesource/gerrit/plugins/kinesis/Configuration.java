@@ -228,8 +228,9 @@ class Configuration {
         : System.getProperty(name);
   }
 
-  public static String cosumerLeaseName(String applicationName, String streamName) {
-    return String.format("%s-%s", applicationName, streamName);
+  public static String consumerLeaseName(
+      String applicationName, Optional<String> groupId, String streamName) {
+    return String.format("%s-%s", groupId.orElse(applicationName), streamName);
   }
 
   public Long getShutdownTimeoutMs() {

@@ -16,10 +16,12 @@ package com.googlesource.gerrit.plugins.kinesis;
 
 import com.gerritforge.gerrit.eventbroker.BrokerApi;
 import com.gerritforge.gerrit.eventbroker.TopicSubscriber;
+import com.gerritforge.gerrit.eventbroker.TopicSubscriberWithGroupId;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -46,10 +48,13 @@ class KinesisBrokerApi implements BrokerApi {
 
   @Override
   public void receiveAsync(String streamName, Consumer<Event> eventConsumer) {
-    KinesisConsumer consumer = consumerFactory.create(streamName, eventConsumer);
+    KinesisConsumer consumer = consumerFactory.create(streamName, Optional.empty(), eventConsumer);
     consumers.add(consumer);
     consumer.subscribe(streamName, eventConsumer);
   }
+
+  @Override
+  public void receiveAsync(String topic, String groupId, Consumer<Event> consumer) {}
 
   @Override
   public Set<TopicSubscriber> topicSubscribers() {
@@ -65,9 +70,36 @@ class KinesisBrokerApi implements BrokerApi {
   }
 
   @Override
+  public void disconnect(String topic, String groupId) {
+    Set<KinesisConsumer> consumersOfTopic =
+        consumers
+            .parallelStream()
+            .filter(
+                c ->
+                    topic.equals(c.getStreamName())
+                        && c.getGroupId().map(groupId::equals).orElse(false))
+            .collect(Collectors.toSet());
+
+    consumersOfTopic.forEach(KinesisConsumer::shutdown);
+    consumers.removeAll(consumersOfTopic);
+  }
+
+  @Override
   public void replayAllEvents(String topic) {
     consumers.stream()
         .filter(subscriber -> topic.equals(subscriber.getStreamName()))
         .forEach(KinesisConsumer::resetOffset);
+  }
+
+  @Override
+  public Set<TopicSubscriberWithGroupId> topicSubscribersWithGroupId() {
+    return consumers.stream()
+        .filter(c -> c.getGroupId().isPresent())
+        .map(
+            s ->
+                TopicSubscriberWithGroupId.topicSubscriberWithGroupId(
+                    s.getGroupId().get(),
+                    TopicSubscriber.topicSubscriber(s.getStreamName(), s.getMessageProcessor())))
+        .collect(Collectors.toSet());
   }
 }
