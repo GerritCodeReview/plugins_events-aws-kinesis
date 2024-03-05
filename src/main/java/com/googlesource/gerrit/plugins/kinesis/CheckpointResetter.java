@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
-import static com.googlesource.gerrit.plugins.kinesis.Configuration.cosumerLeaseName;
+import static com.googlesource.gerrit.plugins.kinesis.Configuration.consumerLeaseName;
 import static software.amazon.kinesis.common.InitialPositionInStream.TRIM_HORIZON;
 
 import com.google.common.flogger.FluentLogger;
@@ -23,6 +23,7 @@ import com.google.inject.Singleton;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -55,8 +56,8 @@ class CheckpointResetter {
     this.dynamoDbAsyncClient = dynamoDbAsyncClient;
   }
 
-  public void setAllShardsToBeginning(String streamName) {
-    String leaseTable = cosumerLeaseName(configuration.getApplicationName(), streamName);
+  public void setAllShardsToBeginning(String streamName, Optional<String> groupId) {
+    String leaseTable = consumerLeaseName(configuration.getApplicationName(), groupId, streamName);
 
     try {
       for (String shard : getAllShards(leaseTable)) {

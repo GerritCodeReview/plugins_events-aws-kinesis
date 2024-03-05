@@ -124,6 +124,45 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
   @Test
   @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
   @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
+  public void shouldConsumeEventBySubscribingWithSpecificGroupId() throws Exception {
+    String streamName = UUID.randomUUID().toString();
+    String groupId = UUID.randomUUID().toString();
+    createStreamAndWait(streamName, STREAM_CREATION_TIMEOUT);
+
+    EventConsumerCounter eventConsumerCounter = new EventConsumerCounter();
+    kinesisBroker().receiveAsync(streamName, groupId, eventConsumerCounter);
+
+    Event event = eventMessage();
+    kinesisBroker().send(streamName, event);
+    WaitUtil.waitUntil(
+        () -> eventConsumerCounter.getConsumedMessages().size() == 1, WAIT_FOR_CONSUMPTION);
+    compareEvents(eventConsumerCounter.getConsumedMessages().get(0), event);
+
+    assertThat(countSubscribers(streamName, groupId)).isEqualTo(1L);
+  }
+
+  @Test
+  @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
+  @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
+  public void shouldDisconnectOnlySubscriberForSpecificGroupId() throws Exception {
+    String streamName = UUID.randomUUID().toString();
+    String groupId1 = UUID.randomUUID().toString();
+    String groupId2 = UUID.randomUUID().toString();
+    createStreamAndWait(streamName, STREAM_CREATION_TIMEOUT);
+
+    EventConsumerCounter eventConsumerCounter = new EventConsumerCounter();
+    kinesisBroker().receiveAsync(streamName, groupId1, eventConsumerCounter);
+    kinesisBroker().receiveAsync(streamName, groupId2, eventConsumerCounter);
+
+    kinesisBroker().disconnect(streamName, groupId2);
+
+    assertThat(countSubscribers(streamName, groupId2)).isEqualTo(0L);
+    assertThat(countSubscribers(streamName, groupId1)).isEqualTo(1L);
+  }
+
+  @Test
+  @GerritConfig(name = "plugin.events-aws-kinesis.applicationName", value = "test-consumer")
+  @GerritConfig(name = "plugin.events-aws-kinesis.initialPosition", value = "trim_horizon")
   public void shouldConsumeAnEventWithoutInstanceId() throws Exception {
     String streamName = UUID.randomUUID().toString();
     createStreamAndWait(streamName, STREAM_CREATION_TIMEOUT);
@@ -275,6 +314,12 @@ public class KinesisEventsIT extends LightweightPluginDaemonTest {
     assertThat(event.type).isEqualTo(expectedEvent.type);
     assertThat(event.eventCreatedOn).isEqualTo(expectedEvent.eventCreatedOn);
     assertThat(event.instanceId).isEqualTo(expectedEvent.instanceId);
+  }
+
+  private long countSubscribers(String streamName, String groupId) {
+    return kinesisBroker().topicSubscribersWithGroupId().stream()
+        .filter(t -> groupId.equals(t.groupId()) && streamName.equals(t.topicSubscriber().topic()))
+        .count();
   }
 
   private static class EventConsumerCounter implements Consumer<Event> {
