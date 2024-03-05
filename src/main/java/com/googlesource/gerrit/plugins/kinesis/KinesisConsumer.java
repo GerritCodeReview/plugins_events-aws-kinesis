@@ -17,6 +17,7 @@ package com.googlesource.gerrit.plugins.kinesis;
 import com.google.common.flogger.FluentLogger;
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Inject;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +27,8 @@ import software.amazon.kinesis.coordinator.Scheduler;
 
 class KinesisConsumer {
   interface Factory {
-    KinesisConsumer create(String topic, Consumer<Event> messageProcessor);
+    KinesisConsumer create(
+        String topic, Optional<String> groupId, Consumer<Event> messageProcessor);
   }
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
@@ -57,12 +59,15 @@ class KinesisConsumer {
     this.messageProcessor = messageProcessor;
 
     logger.atInfo().log("Subscribe kinesis consumer to stream [%s]", streamName);
-    runReceiver(messageProcessor);
+    runReceiver(messageProcessor, groupId);
   }
 
-  private void runReceiver(java.util.function.Consumer<Event> messageProcessor) {
+  private void runReceiver(
+      java.util.function.Consumer<Event> messageProcessor, Optional<String> groupId) {
     this.kinesisScheduler =
-        schedulerFactory.create(streamName, resetOffset.getAndSet(false), messageProcessor).get();
+        schedulerFactory
+            .create(streamName, groupId, resetOffset.getAndSet(false), messageProcessor)
+            .get();
     executor.execute(kinesisScheduler);
   }
 

@@ -228,7 +228,7 @@ class Configuration {
         : System.getProperty(name);
   }
 
-  public static String cosumerLeaseName(String applicationName, String streamName) {
+  public static String consumerLeaseName(String applicationName, String streamName) {
     return String.format("%s-%s", applicationName, streamName);
   }
 

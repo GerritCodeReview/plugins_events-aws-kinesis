@@ -14,12 +14,13 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
-import static com.googlesource.gerrit.plugins.kinesis.Configuration.cosumerLeaseName;
+import static com.googlesource.gerrit.plugins.kinesis.Configuration.consumerLeaseName;
 
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
+import java.util.Optional;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchAsyncClient;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
@@ -34,6 +35,7 @@ class SchedulerProvider implements Provider<Scheduler> {
   interface Factory {
     SchedulerProvider create(
         String streamName,
+        Optional<String> groupId,
         boolean fromBeginning,
         java.util.function.Consumer<Event> messageProcessor);
   }
@@ -42,6 +44,7 @@ class SchedulerProvider implements Provider<Scheduler> {
   private final Configuration configuration;
   private final KinesisAsyncClient kinesisAsyncClient;
   private final String streamName;
+  private final Optional<String> groupId;
   private final boolean fromBeginning;
 
   @AssistedInject
@@ -52,16 +55,18 @@ class SchedulerProvider implements Provider<Scheduler> {
       CloudWatchAsyncClient cloudWatchAsyncClient,
       KinesisRecordProcessorFactory.Factory kinesisRecordProcessorFactory,
       @Assisted String streamName,
+      @Assisted Optional<String> groupId,
       @Assisted boolean fromBeginning,
       @Assisted java.util.function.Consumer<Event> messageProcessor) {
     this.configuration = configuration;
     this.kinesisAsyncClient = kinesisAsyncClient;
     this.streamName = streamName;
+    this.groupId = groupId;
     this.fromBeginning = fromBeginning;
     this.configsBuilder =
         new ConfigsBuilder(
             streamName,
-            cosumerLeaseName(configuration.getApplicationName(), streamName),
+            consumerLeaseName(configuration.getApplicationName(), streamName),
             kinesisAsyncClient,
             dynamoDbAsyncClient,
             cloudWatchAsyncClient,
