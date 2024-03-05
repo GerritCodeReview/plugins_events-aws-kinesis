@@ -33,7 +33,8 @@ import software.amazon.kinesis.retrieval.polling.PollingConfig;
 class SchedulerProvider implements Provider<Scheduler> {
   interface Factory {
     SchedulerProvider create(
-        String streamName,
+        @Assisted("streamName") String streamName,
+        @Assisted("groupId") String groupId,
         boolean fromBeginning,
         java.util.function.Consumer<Event> messageProcessor);
   }
@@ -51,7 +52,8 @@ class SchedulerProvider implements Provider<Scheduler> {
       DynamoDbAsyncClient dynamoDbAsyncClient,
       CloudWatchAsyncClient cloudWatchAsyncClient,
       KinesisRecordProcessorFactory.Factory kinesisRecordProcessorFactory,
-      @Assisted String streamName,
+      @Assisted("streamName") String streamName,
+      @Assisted("groupId") String groupId,
       @Assisted boolean fromBeginning,
       @Assisted java.util.function.Consumer<Event> messageProcessor) {
     this.configuration = configuration;
@@ -61,7 +63,7 @@ class SchedulerProvider implements Provider<Scheduler> {
     this.configsBuilder =
         new ConfigsBuilder(
             streamName,
-            cosumerLeaseName(configuration.getApplicationName(), streamName),
+            cosumerLeaseName(groupId, streamName),
             kinesisAsyncClient,
             dynamoDbAsyncClient,
             cloudWatchAsyncClient,
