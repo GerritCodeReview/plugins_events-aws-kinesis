@@ -106,6 +106,6 @@ class KinesisBrokerApi implements BrokerApi {
   private void receive(String streamName, Optional<String> groupId, Consumer<Event> eventConsumer) {
     KinesisConsumer consumer = consumerFactory.create(streamName, groupId, eventConsumer);
     consumers.add(consumer);
-    consumer.subscribe(streamName, eventConsumer);
+    consumer.subscribe();
   }
 }
