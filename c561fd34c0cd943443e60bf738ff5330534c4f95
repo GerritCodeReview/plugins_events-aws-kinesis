@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7aa65fbe_6a8b3bef",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2024-03-13T16:28:21Z",
+      "side": 1,
+      "message": "nit: now about:\n```\nOptional.ofNullable(groupId).orElse(applicationName)\n```\nand we mark the `groupId` as `@Nullable` and move as the last argument? we can also provide an overload that would only take two arguments.\n\nThis way callers will not need to do `Optional.of()` or `Optional.empty()` on their own. IMO this will result in more readable and compacted code.",
+      "range": {
+        "startLine": 233,
+        "startChar": 34,
+        "endLine": 233,
+        "endChar": 65
+      },
+      "revId": "c561fd34c0cd943443e60bf738ff5330534c4f95",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af15cd75_4c7890ca",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisBrokerApi.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2024-03-13T16:28:21Z",
+      "side": 1,
+      "message": "nit: how about instead of doing `collect` we call directly `forEach` on the stream? We don\u0027t need to realise the `Set` only to iterate over it elements.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 56
+      },
+      "revId": "c561fd34c0cd943443e60bf738ff5330534c4f95",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c589d66d_4023e434",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisConsumer.java",
         "patchSetId": 4
@@ -14,6 +60,30 @@
       "writtenOn": "2024-03-07T08:57:57Z",
       "side": 1,
       "message": "Why is this optional? In any case we use a groupId, if not provided if we use the application name.",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "c561fd34c0cd943443e60bf738ff5330534c4f95",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97ba6d9b_8c276265",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisConsumer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2024-03-13T16:28:21Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "c589d66d_4023e434",
       "range": {
         "startLine": 32,
         "startChar": 22,
