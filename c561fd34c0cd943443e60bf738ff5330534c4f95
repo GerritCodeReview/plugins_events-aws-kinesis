@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c3eedee_8084ad94",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-03-20T11:54:01Z",
+      "side": 1,
+      "message": "Since this renaming is unrelated I have pushed a follow up change.",
+      "parentUuid": "d7b5c375_4b298f27",
+      "range": {
+        "startLine": 231,
+        "startChar": 23,
+        "endLine": 231,
+        "endChar": 40
+      },
+      "revId": "c561fd34c0cd943443e60bf738ff5330534c4f95",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7aa65fbe_6a8b3bef",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "+1, if it was an existing variable of type `Optional\u003cString\u003e` then it would make sense to keep it as-is. But in this case, this was a `null` and therefore just leave it as-is and use a simple ternary operation.\n\nThe use of `Optional\u003c\u003e` here looks redundant.",
       "parentUuid": "7aa65fbe_6a8b3bef",
+      "range": {
+        "startLine": 233,
+        "startChar": 34,
+        "endLine": 233,
+        "endChar": 65
+      },
+      "revId": "c561fd34c0cd943443e60bf738ff5330534c4f95",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f714af3d_0669a86c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-03-20T11:54:01Z",
+      "side": 1,
+      "message": "Comment [1] suggests always to pass a not-empty `groupId`, either the `applicationName` or the one provided explicitly.\n\nSo, this logic needs to be moved to the caller.\nconsumerLeaseName will always take a `String groupId`.\n\n[1] https://gerrit-review.googlesource.com/c/plugins/events-aws-kinesis/+/411799/comment/c589d66d_4023e434/",
+      "parentUuid": "730f382a_41bd2f6e",
       "range": {
         "startLine": 233,
         "startChar": 34,
@@ -155,6 +203,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "c589d66d_4023e434",
+      "range": {
+        "startLine": 32,
+        "startChar": 22,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "c561fd34c0cd943443e60bf738ff5330534c4f95",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4a2fb76_8af12cf5",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisConsumer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-03-20T11:54:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97ba6d9b_8c276265",
       "range": {
         "startLine": 32,
         "startChar": 22,
