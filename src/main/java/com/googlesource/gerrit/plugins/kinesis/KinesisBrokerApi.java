@@ -109,6 +109,6 @@ class KinesisBrokerApi implements BrokerApi {
     String groupId = Optional.ofNullable(maybeGroupId).orElse(configuration.getApplicationName());
     KinesisConsumer consumer = consumerFactory.create(streamName, groupId, eventConsumer);
     consumers.add(consumer);
-    consumer.subscribe(streamName, eventConsumer);
+    consumer.subscribe();
   }
 }
