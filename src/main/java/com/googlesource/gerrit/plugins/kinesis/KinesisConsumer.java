@@ -28,7 +28,7 @@ import software.amazon.kinesis.coordinator.Scheduler;
 class KinesisConsumer {
   interface Factory {
     KinesisConsumer create(
-        @Assisted("topic") String topic,
+        @Assisted("streamName") String streamName,
         @Assisted("groupId") String groupId,
         Consumer<Event> messageProcessor);
   }
@@ -42,8 +42,8 @@ class KinesisConsumer {
   private final String groupId;
   private Scheduler kinesisScheduler;
 
-  private java.util.function.Consumer<Event> messageProcessor;
-  private String streamName;
+  private final java.util.function.Consumer<Event> messageProcessor;
+  private final String streamName;
   private AtomicBoolean resetOffset = new AtomicBoolean(false);
 
   @Inject
@@ -52,18 +52,19 @@ class KinesisConsumer {
       CheckpointResetter checkpointResetter,
       Configuration configuration,
       @ConsumerExecutor ExecutorService executor,
-      @Assisted("groupId") String groupId) {
+      @Assisted("streamName") String streamName,
+      @Assisted("groupId") String groupId,
+      @Assisted java.util.function.Consumer<Event> messageProcessor) {
     this.schedulerFactory = schedulerFactory;
     this.checkpointResetter = checkpointResetter;
     this.configuration = configuration;
     this.executor = executor;
     this.groupId = groupId;
-  }
-
-  public void subscribe(String streamName, java.util.function.Consumer<Event> messageProcessor) {
     this.streamName = streamName;
     this.messageProcessor = messageProcessor;
+  }
 
+  public void subscribe() {
     logger.atInfo().log("Subscribe kinesis consumer to stream [%s]", streamName);
     runReceiver(groupId, messageProcessor);
   }
