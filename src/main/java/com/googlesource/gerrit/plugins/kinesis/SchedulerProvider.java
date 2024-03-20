@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
-import static com.googlesource.gerrit.plugins.kinesis.Configuration.cosumerLeaseName;
+import static com.googlesource.gerrit.plugins.kinesis.Configuration.consumerLeaseName;
 
 import com.google.gerrit.server.events.Event;
 import com.google.inject.Provider;
@@ -63,7 +63,7 @@ class SchedulerProvider implements Provider<Scheduler> {
     this.configsBuilder =
         new ConfigsBuilder(
             streamName,
-            cosumerLeaseName(groupId, streamName),
+            consumerLeaseName(groupId, streamName),
             kinesisAsyncClient,
             dynamoDbAsyncClient,
             cloudWatchAsyncClient,
