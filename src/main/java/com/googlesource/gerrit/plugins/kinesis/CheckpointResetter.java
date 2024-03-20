@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.kinesis;
 
-import static com.googlesource.gerrit.plugins.kinesis.Configuration.cosumerLeaseName;
+import static com.googlesource.gerrit.plugins.kinesis.Configuration.consumerLeaseName;
 import static software.amazon.kinesis.common.InitialPositionInStream.TRIM_HORIZON;
 
 import com.google.common.flogger.FluentLogger;
@@ -56,7 +56,7 @@ class CheckpointResetter {
   }
 
   public void setAllShardsToBeginning(String streamName, String groupId) {
-    String leaseTable = cosumerLeaseName(groupId, streamName);
+    String leaseTable = consumerLeaseName(groupId, streamName);
 
     try {
       for (String shard : getAllShards(leaseTable)) {
