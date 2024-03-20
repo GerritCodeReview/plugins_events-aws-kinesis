@@ -92,7 +92,7 @@ class Configuration {
         getStringParam(pluginConfig, STREAM_EVENTS_TOPIC_FIELD, DEFAULT_STREAM_EVENTS_TOPIC);
     this.sendStreamEvents =
         Optional.ofNullable(getStringParam(pluginConfig, SEND_STREAM_EVENTS_FIELD, null))
-            .map(Boolean::new)
+            .map(Boolean::parseBoolean)
             .orElse(DEFAULT_SEND_STREAM_EVENTS);
     this.numberOfSubscribers =
         Integer.parseInt(
@@ -153,7 +153,7 @@ class Configuration {
 
     this.sendAsync =
         Optional.ofNullable(getStringParam(pluginConfig, SEND_ASYNC_FIELD, null))
-            .map(Boolean::new)
+            .map(Boolean::parseBoolean)
             .orElse(DEFAULT_SEND_ASYNC);
 
     this.awsConfigurationProfileName =
