@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e780afb3_f2745cc7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-03-20T17:47:56Z",
+      "side": 1,
+      "message": "I wanted to manually test this, but I was bitten by [1]\n\n\n[1] https://issues.gerritcodereview.com/issues/330495476",
+      "revId": "c1a30b7b10c78abeba32e7ed2b6ebcf98906287f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
