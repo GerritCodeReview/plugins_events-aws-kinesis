@@ -158,6 +158,30 @@
       },
       "revId": "c1a30b7b10c78abeba32e7ed2b6ebcf98906287f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91b3164_ac1c97f0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisConsumer.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1072905
+      },
+      "writtenOn": "2024-03-28T13:30:06Z",
+      "side": 1,
+      "message": "Would you mind helping me understand why `Assited(\"topic\")` is mandatory now?\n\nThis change adds one assited string (`groupId`) and it does not touch the pre-existing one (`topic`), which is not even injected.\n\nThe `groupId` String injection to `KinesisConsumer` is not ambiguous and guice is perfectly fine with it.\n\nHaving said that, happy to change it if you think is cleaner.",
+      "parentUuid": "06a435fa_5e5cb036",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "c1a30b7b10c78abeba32e7ed2b6ebcf98906287f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
