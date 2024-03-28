@@ -48,6 +48,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24a2999_bc91250d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/Configuration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-28T12:14:02Z",
+      "side": 1,
+      "message": "😎",
+      "parentUuid": "4c3eedee_8084ad94",
+      "range": {
+        "startLine": 231,
+        "startChar": 23,
+        "endLine": 231,
+        "endChar": 40
+      },
+      "revId": "c561fd34c0cd943443e60bf738ff5330534c4f95",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7aa65fbe_6a8b3bef",
