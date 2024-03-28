@@ -6,9 +6,11 @@
       "updated": "2024-03-28T18:32:33Z"
     },
     "gerritforge:plugins-events-aws-kinesis-code-style": {
-      "state": "NOT_STARTED",
+      "state": "RUNNING",
+      "url": "https://gerrit-ci.gerritforge.com/job/plugin-events-aws-kinesis-verifier/job/64%252F413564%252F2/1/console",
+      "started": "2024-03-28T18:40:50Z",
       "created": "2024-03-28T16:19:59Z",
-      "updated": "2024-03-28T18:32:32Z"
+      "updated": "2024-03-28T18:40:51Z"
     }
   }
 }
