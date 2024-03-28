@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e80be452_2f32045d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-28T12:50:22Z",
+      "side": 1,
+      "message": "_\"properly\"_ doesn\u0027t really tell much. What about saying _\"Pass topic/consumer to KinesisConsumer.Factory.create()\"_ ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "8b640c20a42ea7955a02076288af73889b04d4a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6886c8_e1df5ce3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-28T12:50:22Z",
+      "side": 1,
+      "message": "_\"were\"_",
+      "range": {
+        "startLine": 13,
+        "startChar": 23,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "8b640c20a42ea7955a02076288af73889b04d4a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9272fa65_079a875c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-28T12:50:22Z",
+      "side": 1,
+      "message": "_\"were\"_",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 60
+      },
+      "revId": "8b640c20a42ea7955a02076288af73889b04d4a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49a278b7_78ac7fdf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-28T12:50:22Z",
+      "side": 1,
+      "message": "_\"mutable\"_",
+      "range": {
+        "startLine": 21,
+        "startChar": 32,
+        "endLine": 21,
+        "endChar": 41
+      },
+      "revId": "8b640c20a42ea7955a02076288af73889b04d4a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e03ff3a_656c309d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-28T12:50:22Z",
+      "side": 1,
+      "message": "_\"Pass topic/consumer to\"_",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 18
+      },
+      "revId": "8b640c20a42ea7955a02076288af73889b04d4a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a4ceae_14372eb0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisConsumer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2024-03-28T12:50:22Z",
+      "side": 1,
+      "message": "This is unrelated and should be done in the parent change IMHO.",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 29
+      },
+      "revId": "8b640c20a42ea7955a02076288af73889b04d4a2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
