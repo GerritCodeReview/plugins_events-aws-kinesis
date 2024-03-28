@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba514230_22b0abe2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/kinesis/KinesisBrokerApi.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1010134
+      },
+      "writtenOn": "2024-03-28T18:55:17Z",
+      "side": 1,
+      "message": "the `groupId` is annotated `@Nullable` in the `BrokerApi` interface, we should use the `c.getGroupId().equals(groupId)",
+      "range": {
+        "startLine": 82,
+        "startChar": 60,
+        "endLine": 82,
+        "endChar": 67
+      },
+      "revId": "b90571067a6f5f268f0e17062d0e783b5bf7f2b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
