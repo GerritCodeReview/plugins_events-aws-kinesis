@@ -100,7 +100,8 @@ class KinesisPublisher implements EventListener {
             @Override
             public void onSuccess(UserRecordResult result) {
               logger.atFine().log(
-                  "KINESIS PRODUCER - Successfully published event '%s' to shardId '%s' [PK: %s] [Sequence: %s] after %s attempt(s)",
+                  "KINESIS PRODUCER - Successfully published event '%s' to shardId '%s' [PK: %s]"
+                      + " [Sequence: %s] after %s attempt(s)",
                   stringEvent,
                   result.getShardId(),
                   partitionKey,

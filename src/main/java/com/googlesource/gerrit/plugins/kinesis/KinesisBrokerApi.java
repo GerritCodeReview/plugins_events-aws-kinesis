@@ -77,8 +77,7 @@ class KinesisBrokerApi implements BrokerApi {
   @Override
   public void disconnect(String topic, String groupId) {
     Set<KinesisConsumer> consumersOfTopic =
-        consumers
-            .parallelStream()
+        consumers.parallelStream()
             .filter(c -> topic.equals(c.getStreamName()) && groupId.equals(c.getGroupId()))
             .collect(Collectors.toSet());
 
